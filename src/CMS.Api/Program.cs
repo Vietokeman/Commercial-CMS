@@ -1,3 +1,4 @@
+using CMS.Api;
 using CMS.Core.Domain.Identity;
 using CMS.Data;
 using Microsoft.AspNetCore.Identity;
@@ -9,8 +10,7 @@ var connectionString = configuration.GetConnectionString("DefaultConnection");
 // Add services to the container.
 builder.Services.AddDbContext<CMSDbContext>(options =>
     options.UseSqlServer(connectionString));
-
-builder.Services.AddIdentity<IdentityUser, AppRole>(options =>
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 })
@@ -60,4 +60,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//Seeding data
+app.MigrateDatabase();
 app.Run();

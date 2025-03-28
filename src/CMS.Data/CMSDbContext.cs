@@ -34,11 +34,11 @@ namespace CMS.Data
             builder.Entity<IdentityUserToken<Guid>>().HasNoKey();
 
         }
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             var entries = ChangeTracker
                 .Entries()
-                .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+                .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified).ToList();
 
             foreach (var entityEntry in entries)
             {
@@ -47,7 +47,7 @@ namespace CMS.Data
                 {
                     if (dateCreatedProp != null)
                     {
-                        dateCreatedProp.SetValue(entityEntry.Entity, DateTime.Now);
+                        dateCreatedProp.SetValue(entityEntry.Entity, DateTime.UtcNow);
                     }
                 }
 
@@ -61,7 +61,7 @@ namespace CMS.Data
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
     }
 }
