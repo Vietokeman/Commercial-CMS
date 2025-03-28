@@ -1,5 +1,6 @@
 using CMS.Api;
 using CMS.Core.Domain.Identity;
+using CMS.Core.SeedWorks;
 using CMS.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 //config DB context and ASP.net Core Identity
+
+//Add service to the container
+builder.Services.AddScoped<IUnitOfWork, IUnitOfWork>();
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(IRepository<,>));
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
