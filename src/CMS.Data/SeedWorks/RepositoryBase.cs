@@ -7,8 +7,10 @@ namespace CMS.Data.SeedWorks
     public class RepositoryBase<T, Key> : IRepository<T, Key> where T : class
     {
         private readonly DbSet<T> _dbSet;
+        protected readonly CMSDbContext _context;
         public RepositoryBase(CMSDbContext context)
         {
+            _context = context;
             _dbSet = context.Set<T>();
         }
 
@@ -23,7 +25,7 @@ namespace CMS.Data.SeedWorks
         }
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
-            return _dbSet.Where(expression);
+            return _dbSet.Where(expression).ToList();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
