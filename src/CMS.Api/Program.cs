@@ -1,6 +1,9 @@
 using CMS.Api;
 using CMS.Core.Domain.Identity;
+using CMS.Core.SeedWorks;
 using CMS.Data;
+using CMS.Data.Repositories;
+using CMS.Data.SeedWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +42,31 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 //config DB context and ASP.net Core Identity
+
+//Add service to the container
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
+
+//Business services and repositories
+//builder.Services.AddScoped<IPostRepository, PostRepository>();
+//=> viet ra tat ca vong lap
+
+//auto DI interface
+var services = typeof(PostRepository).Assembly.GetTypes()
+    .Where(x => x.GetInterfaces()
+        .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<,>))
+        && !x.IsAbstract && x.IsClass);
+
+foreach (var service in services)
+{
+    var allInterfaces = service.GetInterfaces();
+    var directInterface = allInterfaces.Except(allInterfaces.SelectMany(t => t.GetInterfaces())).FirstOrDefault();
+    if (directInterface != null)
+    {
+        builder.Services.Add(new ServiceDescriptor(directInterface, service, ServiceLifetime.Scoped));
+    }
+}
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
