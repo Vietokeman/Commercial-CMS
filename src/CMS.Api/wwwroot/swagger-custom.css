@@ -1,0 +1,10 @@
+﻿.swagger-ui .opblock-summary {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.swagger-ui .opblock-summary-method,
+.swagger-ui .opblock-summary-path {
+    text-align: center;
+}

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "hoFIY4flM04=",
+  "dgSpecHash": "MlPqQaEOgU0=",
   "success": true,
   "projectFilePath": "E:\\Code\\Commercial_CMS\\src\\CMS.Data\\CMS.Data.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Viet\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Viet\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Viet\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\Viet\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
