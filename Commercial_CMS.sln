@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS.Data", "src\CMS.Data\CM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS.Core", "src\CMS.Core\CMS.Core.csproj", "{A24E5D71-0447-46B8-AC81-EA166756DD9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.WebApp", "src\CMS.WebApp\CMS.WebApp.csproj", "{FAD37FED-FEA8-48DE-92AF-7AB99E6333E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS.WebApp", "src\CMS.WebApp\CMS.WebApp.csproj", "{FAD37FED-FEA8-48DE-92AF-7AB99E6333E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

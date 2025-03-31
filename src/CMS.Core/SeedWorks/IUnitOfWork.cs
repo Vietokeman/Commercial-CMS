@@ -1,7 +1,10 @@
-﻿namespace CMS.Core.SeedWorks
+﻿using CMS.Core.Repositories;
+
+namespace CMS.Core.SeedWorks
 {
     public interface IUnitOfWork
     {
+        IPostRepository Posts { get; }
         Task<int> CompleteAsync();
     }
 }

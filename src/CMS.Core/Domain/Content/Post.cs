@@ -35,7 +35,7 @@ namespace CMS.Core.Domain.Content
         [MaxLength(128)]
         public string? SeoDescription { get; set; }
         public int ViewCount { get; set; }
-        public DateTime DateCreative { get; set; }
+        public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public bool IsPaid { get; set; }
         public double? RoyaltyAmount { get; set; }

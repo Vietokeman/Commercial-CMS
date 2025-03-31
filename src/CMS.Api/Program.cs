@@ -1,11 +1,14 @@
 using CMS.Api;
 using CMS.Core.Domain.Identity;
+using CMS.Core.Models.Content;
 using CMS.Core.SeedWorks;
 using CMS.Data;
 using CMS.Data.Repositories;
 using CMS.Data.SeedWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -55,7 +58,7 @@ builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
 var services = typeof(PostRepository).Assembly.GetTypes()
     .Where(x => x.GetInterfaces()
         .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<,>))
-        && !x.IsAbstract && x.IsClass);
+        && !x.IsAbstract && x.IsClass && x != typeof(RepositoryBase<,>));
 
 foreach (var service in services)
 {
@@ -68,10 +71,25 @@ foreach (var service in services)
 }
 
 
+//service auto mapper
+builder.Services.AddAutoMapper(typeof(PostInListDto));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.CustomOperationIds(apiDesc =>
+    {
+        return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
+    });
+    c.SwaggerDoc("AdminAPI", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Version = "v1",
+        Title = "API for Administrators",
+        Description = "API for CMS core domain. This domain keeps track of campaigns, campaign rules, and campaign execution."
+    });
+});
 
 var app = builder.Build();
 
@@ -79,7 +97,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("AdminAPI/swagger.json", "Admin API");
+        c.InjectStylesheet("/swagger-custom.css");
+        c.DisplayOperationId();
+        c.DisplayRequestDuration();
+    });
 }
 
 app.UseHttpsRedirection();

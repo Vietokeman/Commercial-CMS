@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "NjseRVKGrnKZBWpfqmuAHXbxutasnviq8M3hGZxrFjw=",
+  "Hash": "lkz+QBrX4VDFUgwdWNy9oWb38HeemttOcET4DzeGgzI=",
   "Source": "CMS.Api",
   "BasePath": "_content/CMS.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "CMS.Api\\wwwroot",
+      "Source": "CMS.Api",
+      "ContentRoot": "E:\\Code\\Commercial_CMS\\src\\CMS.Api\\wwwroot\\",
+      "BasePath": "_content/CMS.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\Code\\Commercial_CMS\\src\\CMS.Api\\wwwroot\\swagger-custom.css",
+      "SourceId": "CMS.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Code\\Commercial_CMS\\src\\CMS.Api\\wwwroot\\",
+      "BasePath": "_content/CMS.Api",
+      "RelativePath": "swagger-custom.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\swagger-custom.css"
+    }
+  ]
 }
