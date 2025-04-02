@@ -64,7 +64,7 @@ namespace CMS.Api.Controllers.AdminApi
                 _unitOfWork.Posts.Remove(post);
             }
             var result = await _unitOfWork.CompleteAsync();
-            return result > 0 ? Ok() : BadRequest();
+            return result > 0 ? Ok(ids) : BadRequest();
         }
 
         [HttpGet]

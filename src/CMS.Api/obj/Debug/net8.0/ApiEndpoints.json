@@ -38,6 +38,48 @@
   },
   {
     "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "GetPostById",
+    "RelativePath": "api/admin/post/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.Content.PostDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "DeletePosts",
+    "RelativePath": "api/admin/post/{ids}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ids",
+        "Type": "System.Guid[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
     "Method": "GetPostsPaging",
     "RelativePath": "api/admin/post/paging",
     "HttpMethod": "GET",
