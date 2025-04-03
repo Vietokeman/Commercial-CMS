@@ -10,7 +10,7 @@ export const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home',
+      title: 'Trang chủ',
     },
     children: [
       {
@@ -27,21 +27,6 @@ export const routes: Routes = [
         path: 'content',
         loadChildren: () =>
           import('./views/content/routes').then((m) => m.routes),
-      },
-      {
-        path: 'theme',
-        loadChildren: () =>
-          import('./views/theme/routes').then((m) => m.routes),
-      },
-      {
-        path: 'notifications',
-        loadChildren: () =>
-          import('./views/notifications/routes').then((m) => m.routes),
-      },
-      {
-        path: 'widgets',
-        loadChildren: () =>
-          import('./views/widgets/routes').then((m) => m.routes),
       },
     ],
   },
