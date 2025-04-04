@@ -49,7 +49,7 @@ namespace CMS.Api.Controllers.AdminApi
             var roles = _userManager.GetRolesAsync(user);
             var claims = new[]
             {
-                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
+new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
                     new Claim(UserClaims.Id, user.Id.ToString()),
                     new Claim(ClaimTypes.NameIdentifier, request.UserName),
                     new Claim(ClaimTypes.Name, request.UserName),
