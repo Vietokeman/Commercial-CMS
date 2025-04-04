@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/admin/auth/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Auth.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.Auth.AuthenticatedResult",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
     "Method": "CreatePost",
     "RelativePath": "api/admin/post",
