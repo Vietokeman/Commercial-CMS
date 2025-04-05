@@ -1,4 +1,5 @@
 using CMS.Api;
+using CMS.Api.Filters;
 using CMS.Api.Service;
 using CMS.Core.ConfigOptions;
 using CMS.Core.Domain.Identity;
