@@ -1,4 +1,7 @@
 using CMS.Api;
+using CMS.Api.Filters;
+using CMS.Api.Service;
+using CMS.Core.ConfigOptions;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models.Content;
 using CMS.Core.SeedWorks;
@@ -13,9 +16,11 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var connectionString = configuration.GetConnectionString("DefaultConnection");
-// Add services to the container.
+
+// Add services to the container
 builder.Services.AddDbContext<CMSDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -38,23 +43,16 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
-    //User settings
+    // User settings
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
 
-
-//config DB context and ASP.net Core Identity
-
-//Add service to the container
+// Add service to the container
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
 
-//Business services and repositories
-//builder.Services.AddScoped<IPostRepository, PostRepository>();
-//=> viet ra tat ca vong lap
-
-//auto DI interface
+// Auto DI for business services and repositories
 var services = typeof(PostRepository).Assembly.GetTypes()
     .Where(x => x.GetInterfaces()
         .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<,>))
@@ -70,12 +68,16 @@ foreach (var service in services)
     }
 }
 
-
-//service auto mapper
+// Auto Mapper service
 builder.Services.AddAutoMapper(typeof(PostInListDto));
 
+// Authentication and Authorization
+builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
+builder.Services.AddScoped<ITokenService, TokenService>();
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Swagger configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -90,31 +92,35 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API for CMS core domain. This domain keeps track of campaigns, campaign rules, and campaign execution."
     });
     c.ParameterFilter<SwaggerNullableParameterFilter>();
-    //      "schema": { "type": "string", "nullable": true }
-
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+//css
+app.UseStaticFiles(); //su dung tep tu wwwroot
+
+
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("AdminAPI/swagger.json", "Admin API");
-        c.InjectStylesheet("/swagger-custom.css");
+
+        c.SwaggerEndpoint("/swagger/AdminAPI/swagger.json", "Admin API");
         c.DisplayOperationId();
         c.DisplayRequestDuration();
+        c.InjectStylesheet("/swagger-custom.css");// css custom
     });
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
-//Seeding data
+
+
+// Seeding data
 app.MigrateDatabase();
 app.Run();

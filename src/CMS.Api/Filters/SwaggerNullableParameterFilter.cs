@@ -2,10 +2,11 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace CMS.Api
+namespace CMS.Api.Filters
 {
     public class SwaggerNullableParameterFilter : IParameterFilter
     {
+        //filter de kiem tra nullable
         public void Apply(OpenApiParameter parameter, ParameterFilterContext context)
         {
             if (!parameter.Schema.Nullable &&
