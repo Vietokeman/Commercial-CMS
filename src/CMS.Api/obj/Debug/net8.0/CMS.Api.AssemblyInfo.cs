@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CMS.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43ed1e06fa26bb53dd15f974ea7dbb4b17662445")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86d644de17071d2f5a6a4ca62800786a1a473cf3")]
 [assembly: System.Reflection.AssemblyProductAttribute("CMS.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CMS.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
