@@ -5020,6 +5020,11 @@ npm-registry-fetch@^18.0.0:
     npm-package-arg "^12.0.0"
     proc-log "^5.0.0"
 
+nswag@^14.3.0:
+  version "14.3.0"
+  resolved "https://registry.yarnpkg.com/nswag/-/nswag-14.3.0.tgz#b1cc0a1ac3e3f48f2e0185befdfb686350c7c0ea"
+  integrity sha512-6/vGw9VtCBn788WFyPLwO4TWxZghDy+KSELjowXt12ZAu/0n3lLfQnJ4ws4rbXrO2Jrv0Tm3uzIfYNatrrs8bQ==
+
 nth-check@^2.0.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/nth-check/-/nth-check-2.1.1.tgz"

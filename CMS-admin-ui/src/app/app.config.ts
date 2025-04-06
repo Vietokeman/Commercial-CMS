@@ -6,22 +6,24 @@ import {
   withHashLocation,
   withInMemoryScrolling,
   withRouterConfig,
-  withViewTransitions
+  withViewTransitions,
 } from '@angular/router';
-
+import { environment } from './environments/environment';
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
-
+import { API_BASE_URL } from './services/api-client';
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes,
+    { provide: API_BASE_URL, useValue: environment.API_URL },
+    provideRouter(
+      routes,
       withRouterConfig({
-        onSameUrlNavigation: 'reload'
+        onSameUrlNavigation: 'reload',
       }),
       withInMemoryScrolling({
         scrollPositionRestoration: 'top',
-        anchorScrolling: 'enabled'
+        anchorScrolling: 'enabled',
       }),
       withEnabledBlockingInitialNavigation(),
       withViewTransitions(),
@@ -29,6 +31,6 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
-    provideAnimationsAsync()
-  ]
+    provideAnimationsAsync(),
+  ],
 };
