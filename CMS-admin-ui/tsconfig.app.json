@@ -7,9 +7,7 @@
       "@angular/localize"
     ],
     "paths": {
-      "@docs-components/*": [
-        "./src/components/*"
-      ]
+      "@docs-components/*": ["./src/components/*"]
     }
   },
   "files": [

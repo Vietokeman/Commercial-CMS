@@ -1,14 +1,11 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { getStyle } from '@coreui/utils';
-import { ChartjsComponent } from '@coreui/angular-chartjs';
-import { RowComponent, ColComponent, WidgetStatEComponent, TextColorDirective } from '@coreui/angular';
 
 @Component({
-    selector: 'app-widgets-e',
-    templateUrl: './widgets-e.component.html',
-    styleUrls: ['./widgets-e.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default,
-    imports: [RowComponent, ColComponent, TextColorDirective, WidgetStatEComponent, ChartjsComponent]
+  selector: 'app-widgets-e',
+  templateUrl: './widgets-e.component.html',
+  styleUrls: ['./widgets-e.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class WidgetsEComponent implements AfterContentInit {
 
@@ -112,7 +109,7 @@ export class WidgetsEComponent implements AfterContentInit {
     const params = [
       { backgroundColor: 'danger' },
       { backgroundColor: 'primary' },
-      { backgroundColor: 'secondary' },
+      { backgroundColor: 'dark' },
       { borderColor: 'danger', borderWidth: 2 },
       { borderColor: 'success', borderWidth: 2 },
       { borderColor: 'info', borderWidth: 2 }

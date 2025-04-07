@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ChartData, ChartDataset, ChartOptions, ChartType, PluginOptionsByType, ScaleOptions, TooltipLabelStyle } from 'chart.js';
-import { DeepPartial } from 'chart.js/dist/types/utils';
-import { getStyle } from '@coreui/utils';
+import { getStyle, hexToRgba } from '@coreui/utils';
 
 export interface IChartProps {
-  data?: ChartData;
+  data?: any;
   labels?: any;
-  options?: ChartOptions;
+  options?: any;
   colors?: any;
-  type: ChartType;
+  type?: any;
   legend?: any;
 
   [propName: string]: any;
@@ -22,7 +20,7 @@ export class DashboardChartsData {
     this.initMainChart();
   }
 
-  public mainChart: IChartProps = { type: 'line' };
+  public mainChart: IChartProps = {};
 
   public random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -31,9 +29,10 @@ export class DashboardChartsData {
   initMainChart(period: string = 'Month') {
     const brandSuccess = getStyle('--cui-success') ?? '#4dbd74';
     const brandInfo = getStyle('--cui-info') ?? '#20a8d8';
-    const brandInfoBg = `rgba(${getStyle('--cui-info-rgb')}, .1)`
-    const brandDanger = getStyle('--cui-danger') ?? '#f86c6b';
+    const brandInfoBg = hexToRgba(brandInfo, 10);
+    const brandDanger = getStyle('--cui-danger') || '#f86c6b';
 
+    // mainChart
     // mainChart
     this.mainChart['elements'] = period === 'Month' ? 12 : 27;
     this.mainChart['Data1'] = [];
@@ -102,7 +101,7 @@ export class DashboardChartsData {
       }
     ];
 
-    const datasets: ChartDataset[] = [
+    const datasets = [
       {
         data: this.mainChart['Data1'],
         label: 'Current',
@@ -120,23 +119,39 @@ export class DashboardChartsData {
       }
     ];
 
-    const plugins: DeepPartial<PluginOptionsByType<any>> = {
+    const plugins = {
       legend: {
         display: false
       },
       tooltip: {
         callbacks: {
-          labelColor: (context) => ({ backgroundColor: context.dataset.borderColor } as TooltipLabelStyle)
+          labelColor: function(context: any) {
+            return {
+              backgroundColor: context.dataset.borderColor
+            };
+          }
         }
       }
     };
 
-    const scales = this.getScales();
-
-    const options: ChartOptions = {
+    const options = {
       maintainAspectRatio: false,
       plugins,
-      scales,
+      scales: {
+        x: {
+          grid: {
+            drawOnChartArea: false
+          }
+        },
+        y: {
+          beginAtZero: true,
+          max: 250,
+          ticks: {
+            maxTicksLimit: 5,
+            stepSize: Math.ceil(250 / 5)
+          }
+        }
+      },
       elements: {
         line: {
           tension: 0.4
@@ -158,36 +173,4 @@ export class DashboardChartsData {
     };
   }
 
-  getScales() {
-    const colorBorderTranslucent = getStyle('--cui-border-color-translucent');
-    const colorBody = getStyle('--cui-body-color');
-
-    const scales: ScaleOptions<any> = {
-      x: {
-        grid: {
-          color: colorBorderTranslucent,
-          drawOnChartArea: false
-        },
-        ticks: {
-          color: colorBody
-        }
-      },
-      y: {
-        border: {
-          color: colorBorderTranslucent
-        },
-        grid: {
-          color: colorBorderTranslucent
-        },
-        max: 250,
-        beginAtZero: true,
-        ticks: {
-          color: colorBody,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5)
-        }
-      }
-    };
-    return scales;
-  }
 }

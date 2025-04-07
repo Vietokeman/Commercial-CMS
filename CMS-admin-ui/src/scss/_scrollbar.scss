@@ -7,10 +7,9 @@
   }
 }
 
-//::-webkit-scrollbar {
-//  width: .7em;
-//  height: .7em;
-//}
+::-webkit-scrollbar {
+  width: .7em;
+}
 
 ::-webkit-scrollbar-track {
   background: var(--cui-body-bg, #fff);
@@ -28,3 +27,10 @@
   background: #444;
 }
 
+.dark-theme::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+.dark-theme::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}

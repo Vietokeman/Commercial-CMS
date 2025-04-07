@@ -6,7 +6,6 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from '../../../icons/icon-subset';
 import { WidgetsDropdownComponent } from './widgets-dropdown.component';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('WidgetsDropdownComponent', () => {
   let component: WidgetsDropdownComponent;
@@ -15,9 +14,10 @@ describe('WidgetsDropdownComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [WidgetModule, DropdownModule, IconModule, ButtonModule, ChartjsModule, GridModule, WidgetsDropdownComponent, RouterTestingModule],
-    providers: [IconSetService]
-})
+      declarations: [ WidgetsDropdownComponent ],
+      imports: [WidgetModule, DropdownModule, IconModule, ButtonModule, ChartjsModule, GridModule],
+      providers: [IconSetService]
+    })
     .compileComponents();
   });
 
