@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
@@ -19,10 +19,14 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "paths": {
+      "@/*": ["./*"],
+      "@app/*": ["app/*"],
+      "@api/*": ["app/api/*"],
+      "@shared/*": ["app/shared/*"],
+      "@env/*": ["environments/*"]
+    },
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -33,6 +37,6 @@
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.spec.json" },
+    { "path": "./tsconfig.spec.json" }
   ]
 }

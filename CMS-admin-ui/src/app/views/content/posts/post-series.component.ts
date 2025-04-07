@@ -1,11 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Validators,
+  FormControl,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { AddPostSeriesRequest, AdminApiPostApiClient, AdminApiSeriesApiClient, PostDto, SeriesInListDto } from 'src/app/api/admin-api.service.generated';
-import { MessageConstants } from 'src/app/shared/constants/messages.constant';
-import { AlertService } from 'src/app/shared/services/alert.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import {
+  AddPostSeriesRequest,
+  AdminApiPostApiClient,
+  AdminApiSeriesApiClient,
+  PostDto,
+  SeriesInListDto,
+} from '../../../api/admin-api.service.generated';
+import { MessageConstants } from '../../../shared/constants/messages.constant';
+import { AlertService } from '../../../shared/services/alert.service';
+import { UtilityService } from '../../../shared/services/utility.service';
 
 @Component({
   templateUrl: 'post-series.component.html',
@@ -20,7 +31,7 @@ export class PostSeriesComponent implements OnInit, OnDestroy {
   public btnDisabled = false;
   public saveBtnName: string;
   public allSeries: any[] = [];
-  public postSeries: any[]
+  public postSeries: any[];
   public selectedEntity: PostDto;
   constructor(
     public ref: DynamicDialogRef,
@@ -30,7 +41,7 @@ export class PostSeriesComponent implements OnInit, OnDestroy {
     private postApiClient: AdminApiPostApiClient,
     private seriesApiClient: AdminApiSeriesApiClient,
     private alertService: AlertService
-  ) { }
+  ) {}
 
   ngOnDestroy(): void {
     if (this.ref) {
@@ -54,14 +65,14 @@ export class PostSeriesComponent implements OnInit, OnDestroy {
     var series = this.seriesApiClient.getAllSeries();
     this.toggleBlockUI(true);
     forkJoin({
-      series
+      series,
     })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (repsonse: any) => {
           //Push categories to dropdown list
           var series = repsonse.series as SeriesInListDto[];
-          series.forEach(element => {
+          series.forEach((element) => {
             this.allSeries.push({
               value: element.id,
               label: element.name,
@@ -97,7 +108,7 @@ export class PostSeriesComponent implements OnInit, OnDestroy {
   removeSeries(id: string) {
     var body: AddPostSeriesRequest = new AddPostSeriesRequest({
       postId: this.config.data.id,
-      seriesId: id
+      seriesId: id,
     });
     this.seriesApiClient
       .deletePostSeries(body)
@@ -123,7 +134,7 @@ export class PostSeriesComponent implements OnInit, OnDestroy {
     var body: AddPostSeriesRequest = new AddPostSeriesRequest({
       postId: this.config.data.id,
       seriesId: this.form.controls['seriesId'].value,
-      sortOrder: this.form.controls['sortOrder'].value
+      sortOrder: this.form.controls['sortOrder'].value,
     });
     this.seriesApiClient
       .addPostSeries(body)
@@ -152,9 +163,7 @@ export class PostSeriesComponent implements OnInit, OnDestroy {
   }
   buildForm() {
     this.form = this.fb.group({
-      seriesId: new FormControl(null,
-        Validators.required,
-      ),
+      seriesId: new FormControl(null, Validators.required),
       sortOrder: new FormControl(0, Validators.required),
     });
   }

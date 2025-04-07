@@ -69,7 +69,7 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { UtilityService } from './shared/services/utility.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { UploadService } from './shared/services/upload.service';
-import { BroadcastService } from 'src/app/shared/services/boardcast.service';
+import { BroadcastService } from './shared/services/boardcast.service';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -109,14 +109,14 @@ const APP_CONTAINERS = [
     ToastModule,
     HttpClientModule,
     ConfirmDialogModule,
-    DynamicDialogModule
+    DynamicDialogModule,
   ],
   providers: [
     { provide: ADMIN_API_BASE_URL, useValue: environment.API_URL },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: LocationStrategy,
@@ -141,7 +141,7 @@ const APP_CONTAINERS = [
     UtilityService,
     ConfirmationService,
     UploadService,
-    BroadcastService
+    BroadcastService,
   ],
   bootstrap: [AppComponent],
 })

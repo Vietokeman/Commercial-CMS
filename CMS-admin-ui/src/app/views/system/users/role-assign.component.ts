@@ -1,7 +1,12 @@
 import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { AdminApiRoleApiClient, AdminApiUserApiClient, RoleDto, UserDto } from 'src/app/api/admin-api.service.generated';
+import {
+  AdminApiRoleApiClient,
+  AdminApiUserApiClient,
+  RoleDto,
+  UserDto,
+} from '../../../api/admin-api.service.generated';
 
 @Component({
   templateUrl: 'role-assign.component.html',
@@ -24,7 +29,7 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
     public config: DynamicDialogConfig,
     private userApiClient: AdminApiUserApiClient,
     private roleApiclient: AdminApiRoleApiClient
-  ) { }
+  ) {}
 
   ngOnDestroy(): void {
     if (this.ref) {
@@ -44,7 +49,7 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (repsonse: any) => {
           var roles = repsonse.roles as RoleDto[];
-          roles.forEach(element => {
+          roles.forEach((element) => {
             this.availableRoles.push(element.name);
           });
           this.loadDetail(this.config.data.id);
@@ -64,7 +69,7 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: RoleDto[]) => {
-          response.forEach(element => {
+          response.forEach((element) => {
             this.availableRoles.push(element.name);
           });
           this.toggleBlockUI(false);
@@ -82,7 +87,9 @@ export class RoleAssignComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response: UserDto) => {
           this.seletedRoles = response.roles;
-          this.availableRoles = this.availableRoles.filter(x => !this.seletedRoles.includes(x));
+          this.availableRoles = this.availableRoles.filter(
+            (x) => !this.seletedRoles.includes(x)
+          );
           this.toggleBlockUI(false);
         },
         error: () => {

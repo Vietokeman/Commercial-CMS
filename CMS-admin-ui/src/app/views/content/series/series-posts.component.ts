@@ -1,15 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Subject, takeUntil } from 'rxjs';
 import {
-  FormBuilder,
-} from "@angular/forms";
-import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { Subject, takeUntil } from "rxjs";
-import { AddPostSeriesRequest, AdminApiSeriesApiClient, PostInListDto } from "src/app/api/admin-api.service.generated";
-import { MessageConstants } from "src/app/shared/constants/messages.constant";
-import { AlertService } from "src/app/shared/services/alert.service";
+  AddPostSeriesRequest,
+  AdminApiSeriesApiClient,
+  PostInListDto,
+} from '../../../api/admin-api.service.generated';
+import { MessageConstants } from '../../../shared/constants/messages.constant';
+import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
-  templateUrl: "series-posts.component.html",
+  templateUrl: 'series-posts.component.html',
 })
 export class SeriesPostsComponent implements OnInit {
   private ngUnsubscribe = new Subject<void>();
@@ -23,7 +25,7 @@ export class SeriesPostsComponent implements OnInit {
     public config: DynamicDialogConfig,
     private seriesApiClient: AdminApiSeriesApiClient,
     private alertService: AlertService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.initData();
@@ -44,7 +46,8 @@ export class SeriesPostsComponent implements OnInit {
   loadData(id: string) {
     this.toggleBlockUI(true);
 
-    this.seriesApiClient.getPostsInSeries(id)
+    this.seriesApiClient
+      .getPostsInSeries(id)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (response: PostInListDto[]) => {
@@ -53,14 +56,13 @@ export class SeriesPostsComponent implements OnInit {
         },
         error: (error) => {
           this.toggleBlockUI(false);
-        }
-      }
-      );
+        },
+      });
   }
   removePost(id: string) {
     var body: AddPostSeriesRequest = new AddPostSeriesRequest({
       postId: id,
-      seriesId: this.config.data.id
+      seriesId: this.config.data.id,
     });
     this.seriesApiClient
       .deletePostSeries(body)

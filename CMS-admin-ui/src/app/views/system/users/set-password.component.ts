@@ -10,7 +10,11 @@ import {
 } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
-import { AdminApiUserApiClient, ChangeMyPasswordRequest, RoleDto } from 'src/app/api/admin-api.service.generated';
+import {
+  AdminApiUserApiClient,
+  ChangeMyPasswordRequest,
+  RoleDto,
+} from '../../../api/admin-api.service.generated';
 
 @Component({
   templateUrl: 'set-password.component.html',
@@ -34,7 +38,7 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
     public config: DynamicDialogConfig,
     private userService: AdminApiUserApiClient,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   ngOnDestroy(): void {
     if (this.ref) {
@@ -57,10 +61,13 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
       { type: 'required', message: 'Bạn phải nhập mật khẩu' },
       {
         type: 'pattern',
-        message: 'Mật khẩu ít nhất 8 ký tự, ít nhất 1 số, 1 ký tự đặc biệt, và một chữ hoa',
+        message:
+          'Mật khẩu ít nhất 8 ký tự, ít nhất 1 số, 1 ký tự đặc biệt, và một chữ hoa',
       },
     ],
-    confirmPassword: [{ type: 'required', message: 'Xác nhận mật khẩu không đúng' }],
+    confirmPassword: [
+      { type: 'required', message: 'Xác nhận mật khẩu không đúng' },
+    ],
   };
 
   saveChange() {
@@ -114,5 +121,7 @@ export const passwordMatchingValidatior: ValidatorFn = (
   const password = control.get('newPassword');
   const confirmPassword = control.get('confirmNewPassword');
 
-  return password?.value === confirmPassword?.value ? null : { notmatched: true };
+  return password?.value === confirmPassword?.value
+    ? null
+    : { notmatched: true };
 };

@@ -1,11 +1,27 @@
-import { Component, OnInit, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
+import {
+  Validators,
+  FormControl,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import { UtilityService } from '../../../shared/services/utility.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { formatDate } from '@angular/common';
-import { AdminApiRoleApiClient, AdminApiUserApiClient, RoleDto, UserDto } from 'src/app/api/admin-api.service.generated';
+import {
+  AdminApiRoleApiClient,
+  AdminApiUserApiClient,
+  RoleDto,
+  UserDto,
+} from '../../../api/admin-api.service.generated';
 @Component({
   templateUrl: 'user-detail.component.html',
 })
@@ -33,7 +49,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {}
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();
@@ -51,12 +67,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       { type: 'required', message: 'Bạn phải nhập mật khẩu' },
       {
         type: 'pattern',
-        message: 'Mật khẩu ít nhất 8 ký tự, ít nhất 1 số, 1 ký tự đặc biệt, và một chữ hoa',
+        message:
+          'Mật khẩu ít nhất 8 ký tự, ít nhất 1 số, 1 ký tự đặc biệt, và một chữ hoa',
       },
     ],
     phoneNumber: [{ type: 'required', message: 'Bạn phải nhập số điện thoại' }],
-    royaltyAmountPerPost: [{ type: 'required', message: 'Bạn phải nhập nhuận bút' }],
-
+    royaltyAmountPerPost: [
+      { type: 'required', message: 'Bạn phải nhập nhuận bút' },
+    ],
   };
 
   ngOnInit() {
@@ -66,14 +84,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     var roles = this.roleService.getAllRoles();
     this.toggleBlockUI(true);
     forkJoin({
-      roles
+      roles,
     })
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (repsonse: any) => {
           //Push categories to dropdown list
           var roles = repsonse.roles as RoleDto[];
-          roles.forEach(element => {
+          roles.forEach((element) => {
             this.roles.push({
               value: element.id,
               label: element.name,
@@ -196,11 +214,26 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
   buildForm() {
     this.form = this.fb.group({
-      firstName: new FormControl(this.selectedEntity.firstName || null, Validators.required),
-      lastName: new FormControl(this.selectedEntity.lastName || null, Validators.required),
-      userName: new FormControl(this.selectedEntity.userName || null, Validators.required),
-      email: new FormControl(this.selectedEntity.email || null, Validators.required),
-      phoneNumber: new FormControl(this.selectedEntity.phoneNumber || null, Validators.required),
+      firstName: new FormControl(
+        this.selectedEntity.firstName || null,
+        Validators.required
+      ),
+      lastName: new FormControl(
+        this.selectedEntity.lastName || null,
+        Validators.required
+      ),
+      userName: new FormControl(
+        this.selectedEntity.userName || null,
+        Validators.required
+      ),
+      email: new FormControl(
+        this.selectedEntity.email || null,
+        Validators.required
+      ),
+      phoneNumber: new FormControl(
+        this.selectedEntity.phoneNumber || null,
+        Validators.required
+      ),
       password: new FormControl(
         null,
         Validators.compose([
@@ -211,12 +244,17 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         ])
       ),
       dob: new FormControl(
-        this.selectedEntity.dob ? formatDate(this.selectedEntity.dob, 'yyyy-MM-dd', 'en') : null
+        this.selectedEntity.dob
+          ? formatDate(this.selectedEntity.dob, 'yyyy-MM-dd', 'en')
+          : null
       ),
       avatarFile: new FormControl(null),
       avatar: new FormControl(this.selectedEntity.avatar || null),
       isActive: new FormControl(this.selectedEntity.isActive || true),
-      royaltyAmountPerPost: new FormControl(this.selectedEntity.royaltyAmountPerPost || 0, Validators.required)
+      royaltyAmountPerPost: new FormControl(
+        this.selectedEntity.royaltyAmountPerPost || 0,
+        Validators.required
+      ),
     });
   }
 }

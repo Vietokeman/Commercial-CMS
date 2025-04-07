@@ -4,9 +4,9 @@ import {
   AdminApiRoleApiClient,
   RoleDto,
   RoleDtoPagedResult,
-} from 'src/app/api/admin-api.service.generated';
+} from '../../../api/admin-api.service.generated';
 import { DialogService, DynamicDialogComponent } from 'primeng/dynamicdialog';
-import { AlertService } from 'src/app/shared/services/alert.service';
+import { AlertService } from '../../../shared/services/alert.service';
 import { ConfirmationService } from 'primeng/api';
 import { RoleDetailComponent } from './role-detail.component';
 import { MessageConstants } from '../../../shared/constants/messages.constant';
@@ -24,10 +24,10 @@ export class RoleComponent implements OnInit, OnDestroy {
   //Paging variables
   public pageIndex: number = 1;
   public pageSize: number = 10;
-  public totalCount: number;
+  public totalCount?: number;
 
   //Business variables
-  public items: RoleDto[];
+  public items?: RoleDto[];
   public selectedItems: RoleDto[] = [];
   public keyword: string = '';
 
@@ -83,24 +83,22 @@ export class RoleComponent implements OnInit, OnDestroy {
   showPermissionModal(id: string, name: string) {
     const ref = this.dialogService.open(PermissionGrantComponent, {
       data: {
-          id: id,
+        id: id,
       },
       header: name,
       width: '70%',
-  });
-  const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-  const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-  const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-  dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
-  ref.onClose.subscribe((data: RoleDto) => {
+    });
+    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
+    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
+    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
+    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
+    ref.onClose.subscribe((data: RoleDto) => {
       if (data) {
-          this.alertService.showSuccess(
-              MessageConstants.UPDATED_OK_MSG
-          );
-          this.selectedItems = [];
-          this.loadData();
+        this.alertService.showSuccess(MessageConstants.UPDATED_OK_MSG);
+        this.selectedItems = [];
+        this.loadData();
       }
-  });
+    });
   }
   showEditModal() {
     if (this.selectedItems.length == 0) {
@@ -146,38 +144,34 @@ export class RoleComponent implements OnInit, OnDestroy {
   }
   deleteItems() {
     if (this.selectedItems.length == 0) {
-        this.alertService.showError(
-            MessageConstants.NOT_CHOOSE_ANY_RECORD
-        );
-        return;
+      this.alertService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
+      return;
     }
     var ids = [];
     this.selectedItems.forEach((element) => {
-        ids.push(element.id);
+      ids.push(element.id);
     });
     this.confirmationService.confirm({
-        message: MessageConstants.CONFIRM_DELETE_MSG,
-        accept: () => {
-            this.deleteItemsConfirm(ids);
-        },
+      message: MessageConstants.CONFIRM_DELETE_MSG,
+      accept: () => {
+        this.deleteItemsConfirm(ids);
+      },
     });
-}
+  }
 
-deleteItemsConfirm(ids: any[]) {
+  deleteItemsConfirm(ids: any[]) {
     this.toggleBlockUI(true);
 
     this.roleService.deleteRoles(ids).subscribe({
-        next: () => {
-            this.alertService.showSuccess(
-                MessageConstants.DELETED_OK_MSG
-            );
-            this.loadData();
-            this.selectedItems = [];
-            this.toggleBlockUI(false);
-        },
-        error: () => {
-            this.toggleBlockUI(false);
-        },
+      next: () => {
+        this.alertService.showSuccess(MessageConstants.DELETED_OK_MSG);
+        this.loadData();
+        this.selectedItems = [];
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(false);
+      },
     });
-}
+  }
 }

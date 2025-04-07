@@ -13,15 +13,15 @@ import {
 } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import { UtilityService } from '../../../shared/services/utility.service';
 import {
   AdminApiPostApiClient,
   AdminApiPostCategoryApiClient,
   PostCategoryDto,
-  PostDto
-} from 'src/app/api/admin-api.service.generated';
-import { UploadService } from 'src/app/shared/services/upload.service';
-import { environment } from 'src/environments/environment';
+  PostDto,
+} from '../../../api/admin-api.service.generated';
+import { UploadService } from '../../../shared/services/upload.service';
+import { environment } from '../../../../environments/environment';
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
   query: string;
@@ -115,8 +115,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
                 this.postTags = res;
                 this.loadFormDetails(this.config.data?.id);
               });
-
-            
           } else {
             this.toggleBlockUI(false);
           }

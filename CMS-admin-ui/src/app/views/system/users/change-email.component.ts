@@ -1,8 +1,16 @@
 import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Validators,
+  FormControl,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
-import { AdminApiUserApiClient, UserDto } from 'src/app/api/admin-api.service.generated';
+import {
+  AdminApiUserApiClient,
+  UserDto,
+} from '../../../api/admin-api.service.generated';
 
 @Component({
   templateUrl: 'change-email.component.html',

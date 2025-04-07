@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './users/user.component';
 import { RoleComponent } from './roles/role.component';
 
-import { AuthGuard } from 'src/app/shared/auth.guard';
+import { AuthGuard } from '../../shared/auth.guard';
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'users',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'users',

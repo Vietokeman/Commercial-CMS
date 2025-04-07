@@ -10,7 +10,7 @@ import {
   switchMap,
   throwError,
   tap,
-  Subject
+  Subject,
 } from 'rxjs';
 import { TokenStorageService } from '../services/token-storage.service';
 import {
@@ -19,8 +19,8 @@ import {
   TokenRequest,
 } from '../../api/admin-api.service.generated';
 import { Router } from '@angular/router';
-import { AlertService } from 'src/app/shared/services/alert.service';
-import { BroadcastService } from 'src/app/shared/services/boardcast.service';
+import { AlertService } from '../services/alert.service';
+import { BroadcastService } from '../services/boardcast.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -33,15 +33,16 @@ export class TokenInterceptor implements HttpInterceptor {
     private tokenService: TokenStorageService,
     private tokenApiClient: AdminApiTokenApiClient,
     private alertService: AlertService,
-    private boardCastService: BroadcastService) { }
+    private boardCastService: BroadcastService
+  ) {}
 
   addAuthHeader(request) {
     const authHeader = this.tokenService.getToken();
     if (authHeader) {
       return request.clone({
         setHeaders: {
-          'Authorization': `Bearer ` + authHeader
-        }
+          Authorization: `Bearer ` + authHeader,
+        },
       });
     }
     return request;
@@ -49,7 +50,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   refreshToken(): Observable<any> {
     if (this.refreshTokenInProgress) {
-      return new Observable(observer => {
+      return new Observable((observer) => {
         this.tokenRefreshed$.subscribe(() => {
           observer.next();
           observer.complete();
@@ -74,19 +75,20 @@ export class TokenInterceptor implements HttpInterceptor {
           this.refreshTokenInProgress = false;
           this.logout();
           return throwError(err);
-        }));
+        })
+      );
     }
   }
 
   logout() {
     this.tokenService.signOut();
-    this.router.navigate(["login"]);
+    this.router.navigate(['login']);
   }
 
   async handleResponseError(error, request?, next?) {
     // Business error
     if (error.status === 400) {
-      const errMessage = await (new Response(error.error)).text();
+      const errMessage = await new Response(error.error).text();
       this.alertService.showError(errMessage);
       this.boardCastService.httpError.next(true);
     }
@@ -98,13 +100,14 @@ export class TokenInterceptor implements HttpInterceptor {
           request = this.addAuthHeader(request);
           return next.handle(request);
         }),
-        catchError(e => {
+        catchError((e) => {
           if (e.status !== 401) {
             return this.handleResponseError(e);
           } else {
             this.logout();
           }
-        }));
+        })
+      );
     }
 
     // Access denied error
@@ -112,11 +115,12 @@ export class TokenInterceptor implements HttpInterceptor {
       // Logout
       this.logout();
       this.boardCastService.httpError.next(true);
-
     }
     // Maintenance error
     else if (error.status === 500) {
-      this.alertService.showError('Hệ thống có lỗi xảy ra. Vui lòng liên hệ admin');
+      this.alertService.showError(
+        'Hệ thống có lỗi xảy ra. Vui lòng liên hệ admin'
+      );
       this.boardCastService.httpError.next(true);
     }
 
@@ -128,8 +132,10 @@ export class TokenInterceptor implements HttpInterceptor {
     request = this.addAuthHeader(request);
 
     // Handle response
-    return next.handle(request).pipe(catchError(error => {
-      return this.handleResponseError(error, request, next);
-    }));
+    return next.handle(request).pipe(
+      catchError((error) => {
+        return this.handleResponseError(error, request, next);
+      })
+    );
   }
 }

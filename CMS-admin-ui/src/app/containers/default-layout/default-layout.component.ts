@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { navItems } from './_nav';
-import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
+import { TokenStorageService } from '../../shared/services/token-storage.service';
 import { Router } from '@angular/router';
-import { UrlConstants } from 'src/app/shared/constants/url.constants';
+import { UrlConstants } from '../../shared/constants/url.constants';
 
 @Component({
   selector: 'app-dashboard',

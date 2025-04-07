@@ -1,11 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Validators,
+  FormControl,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { AddPostSeriesRequest, AdminApiPostApiClient, AdminApiSeriesApiClient, PostActivityLogDto, PostDto, SeriesInListDto } from 'src/app/api/admin-api.service.generated';
-import { MessageConstants } from 'src/app/shared/constants/messages.constant';
-import { AlertService } from 'src/app/shared/services/alert.service';
-import { UtilityService } from 'src/app/shared/services/utility.service';
+import {
+  AdminApiPostApiClient,
+  PostActivityLogDto,
+} from '../../../api/admin-api.service.generated';
+import { UtilityService } from '../../../shared/services/utility.service';
 
 @Component({
   templateUrl: 'post-activity-logs.component.html',
@@ -23,8 +29,8 @@ export class PostActivityLogsComponent implements OnInit, OnDestroy {
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private utilService: UtilityService,
-    private postApiClient: AdminApiPostApiClient,
-  ) { }
+    private postApiClient: AdminApiPostApiClient
+  ) {}
 
   ngOnDestroy(): void {
     if (this.ref) {
@@ -34,11 +40,11 @@ export class PostActivityLogsComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-
   ngOnInit() {
     //Load data to form
     this.toggleBlockUI(true);
-    this.postApiClient.getActivityLogs(this.config.data.id)
+    this.postApiClient
+      .getActivityLogs(this.config.data.id)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (repsonse: PostActivityLogDto[]) => {

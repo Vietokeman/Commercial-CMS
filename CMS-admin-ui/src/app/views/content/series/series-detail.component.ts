@@ -1,11 +1,20 @@
 import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Validators,
+  FormControl,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
-import { UtilityService } from 'src/app/shared/services/utility.service';
-import { AdminApiSeriesApiClient, PostDto, SeriesDto } from 'src/app/api/admin-api.service.generated';
-import { UploadService } from 'src/app/shared/services/upload.service';
-import { environment } from 'src/environments/environment';
+import { UtilityService } from '../../../shared/services/utility.service';
+import {
+  AdminApiSeriesApiClient,
+  PostDto,
+  SeriesDto,
+} from '../../../api/admin-api.service.generated';
+import { UploadService } from '../../../shared/services/upload.service';
+import { environment } from '../../../../environments/environment';
 @Component({
   templateUrl: 'series-detail.component.html',
 })
@@ -34,7 +43,7 @@ export class SeriesDetailComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private seriesApiClient: AdminApiSeriesApiClient,
     private uploadService: UploadService
-  ) { }
+  ) {}
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();
@@ -44,7 +53,7 @@ export class SeriesDetailComponent implements OnInit, OnDestroy {
   }
 
   public generateSlug() {
-    var slug = this.utilService.makeSeoTitle(this.form.get('name').value);
+    var slug = this.utilService.makeSeoTitle(this.form.get('name')?.value);
     this.form.controls['slug'].setValue(slug);
   }
   // Validate
@@ -85,19 +94,17 @@ export class SeriesDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-
   onFileChange(event) {
     if (event.target.files && event.target.files.length) {
-      this.uploadService.uploadImage('posts', event.target.files)
-        .subscribe({
-          next: (response: any) => {
-            this.form.controls['thumbnail'].setValue(response.path);
-            this.thumbnailImage = environment.API_URL + response.path;
-          },
-          error: (err: any) => {
-            console.log(err);
-          }
-        });
+      this.uploadService.uploadImage('posts', event.target.files).subscribe({
+        next: (response: any) => {
+          this.form.controls['thumbnail'].setValue(response.path);
+          this.thumbnailImage = environment.API_URL + response.path;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
     }
   }
   saveChange() {
@@ -157,14 +164,20 @@ export class SeriesDetailComponent implements OnInit, OnDestroy {
           Validators.minLength(3),
         ])
       ),
-      slug: new FormControl(this.selectedEntity.slug || null, Validators.required),
-      description: new FormControl(this.selectedEntity.description || null, Validators.required),
-      seoDescription: new FormControl(this.selectedEntity.seoDescription || null),
+      slug: new FormControl(
+        this.selectedEntity.slug || null,
+        Validators.required
+      ),
+      description: new FormControl(
+        this.selectedEntity.description || null,
+        Validators.required
+      ),
+      seoDescription: new FormControl(
+        this.selectedEntity.seoDescription || null
+      ),
       content: new FormControl(this.selectedEntity.content || null),
       isActive: new FormControl(this.selectedEntity.isActive || null),
-      thumbnail: new FormControl(
-        this.selectedEntity.thumbnail || null
-      ),
+      thumbnail: new FormControl(this.selectedEntity.thumbnail || null),
     });
     if (this.selectedEntity.thumbnail) {
       this.thumbnailImage = environment.API_URL + this.selectedEntity.thumbnail;

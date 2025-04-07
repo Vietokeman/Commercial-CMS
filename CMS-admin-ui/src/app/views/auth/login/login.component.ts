@@ -11,11 +11,11 @@ import {
   AuthenticatedResult,
   LoginRequest,
 } from '../../../api/admin-api.service.generated';
-import { AlertService } from 'src/app/shared/services/alert.service';
-import { UrlConstants } from 'src/app/shared/constants/url.constants';
-import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
+import { AlertService } from '../../../shared/services/alert.service';
+import { UrlConstants } from '../../../shared/constants/url.constants';
+import { TokenStorageService } from '../../../shared/services/token-storage.service';
 import { from, Subject, takeUntil } from 'rxjs';
-import { BroadcastService } from 'src/app/shared/services/boardcast.service';
+import { BroadcastService } from '../../../shared/services/boardcast.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -63,11 +63,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: AuthenticatedResult) => {
           //Save token and refresh token to localstorage
-          this.tokenSerivce.saveToken(res.token);
-          this.tokenSerivce.saveRefreshToken(res.refreshToken);
-          this.tokenSerivce.saveUser(res);
-          //Redirect to dashboard
-          this.router.navigate([UrlConstants.HOME]);
+          if (res.token && res.refreshToken) {
+            this.tokenSerivce.saveToken(res.token);
+            this.tokenSerivce.saveRefreshToken(res.refreshToken);
+            this.tokenSerivce.saveUser(res);
+            //Redirect to dashboard
+            this.router.navigate([UrlConstants.HOME]);
+          }
         },
         error: (error: any) => {
           console.log(error);
