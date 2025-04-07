@@ -14,7 +14,7 @@ import {
 import { AlertService } from '../../../shared/services/alert.service';
 import { UrlConstants } from '../../../shared/constants/url.constants';
 import { TokenStorageService } from '../../../shared/services/token-storage.service';
-import { from, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { BroadcastService } from '../../../shared/services/boardcast.service';
 @Component({
   selector: 'app-login',
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    this.broadCastService.httpError.asObservable().subscribe((values) => {
+    this.broadCastService.httpError.asObservable().subscribe(() => {
       this.loading = false;
     });
   }
@@ -51,30 +51,34 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    console.log('Start login');
     this.loading = true;
-    var request: LoginRequest = new LoginRequest({
+    const request: LoginRequest = new LoginRequest({
       userName: this.loginForm.controls['userName'].value,
       password: this.loginForm.controls['password'].value,
     });
+    console.log('Request:', request);
 
     this.authApiClient
       .login(request)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (res: AuthenticatedResult) => {
-          //Save token and refresh token to localstorage
+          console.log('Login success:', res);
           if (res.token && res.refreshToken) {
             this.tokenSerivce.saveToken(res.token);
             this.tokenSerivce.saveRefreshToken(res.refreshToken);
             this.tokenSerivce.saveUser(res);
-            //Redirect to dashboard
             this.router.navigate([UrlConstants.HOME]);
           }
         },
-        error: (error: any) => {
-          console.log(error);
+        error: (error: Error) => {
+          console.log('Login error:', error);
           this.alertService.showError('Đăng nhập không đúng.');
           this.loading = false;
+        },
+        complete: () => {
+          console.log('Login complete');
         },
       });
   }
