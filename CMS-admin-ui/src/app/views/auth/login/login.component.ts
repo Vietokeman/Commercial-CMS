@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   private ngUnsubscribe = new Subject<void>();
   loading = false;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -49,36 +50,59 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-
   login() {
-    console.log('Start login');
+    if (!this.loginForm.valid) {
+      this.alertService.showError('Vui lòng nhập đầy đủ thông tin.');
+      this.errorMessage = 'Vui lòng nhập đầy đủ thông tin.';
+      return;
+    }
+
     this.loading = true;
     const request: LoginRequest = new LoginRequest({
       userName: this.loginForm.controls['userName'].value,
       password: this.loginForm.controls['password'].value,
     });
-    console.log('Request:', request);
+    console.log(request);
 
     this.authApiClient
       .login(request)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (res: AuthenticatedResult) => {
-          console.log('Login success:', res);
-          if (res.token && res.refreshToken) {
+          this.loading = false;
+          this.errorMessage = null; // Xóa thông báo lỗi nếu thành công
+          if (res && res.token) {
             this.tokenSerivce.saveToken(res.token);
-            this.tokenSerivce.saveRefreshToken(res.refreshToken);
+            if (res.refreshToken) {
+              this.tokenSerivce.saveRefreshToken(res.refreshToken);
+            }
             this.tokenSerivce.saveUser(res);
             this.router.navigate([UrlConstants.HOME]);
+          } else {
+            this.loading = false;
+            this.alertService.showError('Tài khoản hoặc mật khẩu không đúng.');
+            this.errorMessage = 'Tài khoản hoặc mật khẩu không đúng.';
           }
         },
-        error: (error: Error) => {
-          console.log('Login error:', error);
-          this.alertService.showError('Đăng nhập không đúng.');
+        error: (error) => {
           this.loading = false;
+          console.log('Lỗi đăng nhập:', error);
+          if (error.status === 401) {
+            this.alertService.showError('Tài khoản hoặc mật khẩu không đúng.');
+            this.errorMessage = 'Tài khoản hoặc mật khẩu không đúng.';
+          } else {
+            this.alertService.showError(
+              'Đăng nhập không thành công. Vui lòng thử lại sau.'
+            );
+            this.errorMessage =
+              'Đăng nhập không thành công. Vui lòng thử lại sau.';
+          }
         },
         complete: () => {
-          console.log('Login complete');
+          setTimeout(() => {
+            this.loading = false;
+            this.errorMessage = null;
+          }, 3000);
         },
       });
   }

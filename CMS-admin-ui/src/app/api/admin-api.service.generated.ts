@@ -10,6 +10,9 @@
 import {
   mergeMap as _observableMergeMap,
   catchError as _observableCatch,
+  timeout,
+  map,
+  catchError,
 } from 'rxjs/operators';
 import {
   Observable,
@@ -50,46 +53,38 @@ export class AdminApiAuthApiClient {
   login(body?: LoginRequest | undefined): Observable<AuthenticatedResult> {
     let url_ = this.baseUrl + '/api/admin/auth/login';
     url_ = url_.replace(/[?&]$/, '');
-    console.log('Login URL:', url_);
-
+    console.log('body', body);
     const content_ = JSON.stringify(body);
-
+    console.log('content_', content_);
     let options_: any = {
       body: content_,
       observe: 'response',
-      responseType: 'json',
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Accept: 'text/plain',
+        Accept: 'application/json', // Sửa Accept thành application/json
       }),
     };
 
-    return this.http
-      .request('post', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          console.log('Response:', response_);
-          return this.processLogin(response_);
-        })
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          console.log('Error:', response_);
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processLogin(response_ as any);
-            } catch (e) {
-              console.log('Process error:', e);
-              return _observableThrow(
-                e
-              ) as any as Observable<AuthenticatedResult>;
-            }
-          } else
+    return this.http.request('post', url_, options_).pipe(
+      _observableMergeMap((response_: any) => {
+        return this.processLogin(response_);
+      }),
+      _observableCatch((response_: any) => {
+        if (response_ instanceof HttpResponseBase) {
+          try {
+            return this.processLogin(response_ as any);
+          } catch (e) {
             return _observableThrow(
-              response_
+              e
             ) as any as Observable<AuthenticatedResult>;
-        })
-      );
+          }
+        } else {
+          return _observableThrow(
+            response_
+          ) as any as Observable<AuthenticatedResult>;
+        }
+      })
+    );
   }
 
   protected processLogin(
@@ -109,27 +104,31 @@ export class AdminApiAuthApiClient {
         _headers[key] = response.headers.get(key);
       }
     }
+    console.log('Process login response:', response);
+
     if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText: string) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = AuthenticatedResult.fromJS(resultData200);
-          return _observableOf(result200);
-        })
-      );
+      // Không cần blobToText vì responseType là json
+      console.log('Response body:', responseBlob);
+      let result200: any = null;
+      let resultData200 = responseBlob; // Đã là JSON, không cần JSON.parse
+      console.log('Parsed response:', resultData200);
+      result200 = resultData200
+        ? AuthenticatedResult.fromJS(resultData200)
+        : new AuthenticatedResult();
+      return _observableOf(result200);
+    } else if (status === 401) {
+      // Xử lý lỗi 401
+      const customError = new Error('Tài khoản hoặc mật khẩu không đúng');
+      customError['status'] = 401; // Thêm thuộc tính status
+      return _observableThrow(customError);
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
         _observableMergeMap((_responseText: string) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers
+          const genericError = new Error(
+            'Đăng nhập thất bại. Vui lòng thử lại.'
           );
+          genericError['status'] = status; // Thêm thuộc tính status
+          return _observableThrow(genericError);
         })
       );
     }
@@ -4813,8 +4812,8 @@ export interface IAddPostSeriesRequest {
 }
 
 export class AuthenticatedResult implements IAuthenticatedResult {
-  token?: string | undefined;
-  refreshToken?: string | undefined;
+  token: string | undefined;
+  refreshToken: string | undefined;
 
   constructor(data?: IAuthenticatedResult) {
     if (data) {
@@ -4848,8 +4847,8 @@ export class AuthenticatedResult implements IAuthenticatedResult {
 }
 
 export interface IAuthenticatedResult {
-  token?: string | undefined;
-  refreshToken?: string | undefined;
+  token: string | undefined;
+  refreshToken: string | undefined;
 }
 
 export class ChangeEmailRequest implements IChangeEmailRequest {

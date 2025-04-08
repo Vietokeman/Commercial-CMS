@@ -90,7 +90,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (error.status === 400) {
       const errMessage = await new Response(error.error).text();
       this.alertService.showError(errMessage);
-      this.boardCastService.httpError.next(true);
+      this.boardCastService.httpError.next(error);
     }
 
     // Invalid token error
@@ -114,14 +114,14 @@ export class TokenInterceptor implements HttpInterceptor {
     else if (error.status === 403) {
       // Logout
       this.logout();
-      this.boardCastService.httpError.next(true);
+      this.boardCastService.httpError.next(error);
     }
     // Maintenance error
     else if (error.status === 500) {
       this.alertService.showError(
         'Hệ thống có lỗi xảy ra. Vui lòng liên hệ admin'
       );
-      this.boardCastService.httpError.next(true);
+      this.boardCastService.httpError.next(error);
     }
 
     return throwError(error);
