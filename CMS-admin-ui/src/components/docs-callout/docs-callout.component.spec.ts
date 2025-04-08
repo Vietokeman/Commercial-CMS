@@ -9,8 +9,9 @@ describe('DocsCalloutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [CalloutModule, DocsCalloutComponent]
-})
+      declarations: [ DocsCalloutComponent ],
+      imports: [CalloutModule]
+    })
     .compileComponents();
   });
 

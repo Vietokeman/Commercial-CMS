@@ -1,23 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
 
 // Import styles with default layout.
-@use "@coreui/coreui/scss/coreui" as * with (
-  $enable-deprecation-messages: false
-);
+@import "@coreui/coreui/scss/coreui";
 
 // Import Chart.js custom tooltips styles
-@use "@coreui/chartjs/scss/coreui-chartjs";
+@import "@coreui/chartjs/scss/coreui-chartjs";
 
-// Custom styles for this theme
-@use "theme";
+@import "layout";
 
 // Some temp fixes
-//@use "fixes";
+@import "fixes";
 
-// If you want to add custom CSS you can put it here.
-@use "custom";
+// Prism.js
+@import "examples";
 
-// Examples
-// We use those styles to show code examples, you should remove them in your application.
-@use "examples";
+// If you want to add something do it here
+@import "custom";
 
+// Add primeng styles
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";

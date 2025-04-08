@@ -2,24 +2,30 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "types": ["@angular/localize"],
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "strict": true,
+    "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "paths": {
+      "@/*": ["./*"],
+      "@app/*": ["app/*"],
+      "@api/*": ["app/api/*"],
+      "@shared/*": ["app/shared/*"],
+      "@env/*": ["environments/*"]
+    },
     "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
