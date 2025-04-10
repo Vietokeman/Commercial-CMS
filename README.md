@@ -70,6 +70,6 @@ ng serve --open
 Nếu bạn có bất kỳ đề xuất hoặc muốn đóng góp, vui lòng tạo Pull Request hoặc liên hệ qua GitHub.
 
 ---
-**Tác giả**: [Tên của bạn]  
-**GitHub Repository**: [Link đến repo dự án]
-
+**Tác giả**: Vietokeman
+**GitHub Repository**: https://github.com/Vietokeman/Commercial-CMS
+**Facebook**: https://www.facebook.com/vietphomaique123/
