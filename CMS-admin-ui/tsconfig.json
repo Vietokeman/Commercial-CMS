@@ -2,7 +2,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
@@ -19,14 +18,19 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "lib": ["ES2022", "dom"],
+    "baseUrl": "./src", // Đặt baseUrl cho các đường dẫn tương đối
     "paths": {
-      "@/*": ["./*"],
-      "@app/*": ["app/*"],
-      "@api/*": ["app/api/*"],
-      "@shared/*": ["app/shared/*"],
-      "@env/*": ["environments/*"]
-    },
-    "lib": ["ES2022", "dom"]
+      "@api/*": ["app/api/*"], // Alias cho thư mục api
+      "@auth/*": ["app/views/auth/*"], // Alias cho thư mục auth
+      "@containers/*": ["app/containers/*"], // Alias cho thư mục containers
+      "@shared/*": ["app/shared/*"], // Alias cho thư mục shared
+      "@views/*": ["app/views/*"], // Alias cho thư mục views
+      "@components/*": ["app/components/*"], // Alias cho thư mục components
+      "@environments/*": ["app/environments/*"], // Alias cho thư mục environments
+      "@assets/*": ["app/assets/*"], // Alias cho thư mục assets
+      "@scss/*": ["app/scss/*"] // Alias cho thư mục scss
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

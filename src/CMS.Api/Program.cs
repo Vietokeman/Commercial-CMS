@@ -8,14 +8,27 @@ using CMS.Core.SeedWorks;
 using CMS.Data;
 using CMS.Data.Repositories;
 using CMS.Data.SeedWorks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var connectionString = configuration.GetConnectionString("DefaultConnection");
+var VietokemanPolicy = "VietokemanPolicy";
+
+//Add cor
+builder.Services.AddCors(o => o.AddPolicy(VietokemanPolicy, builder =>
+{
+    builder.AllowAnyMethod()
+    .AllowAnyHeader()
+    .WithOrigins(configuration["AllowedOrigins"])
+    .AllowCredentials();
+}));
 
 // Add services to the container
 builder.Services.AddDbContext<CMSDbContext>(options =>
@@ -94,6 +107,25 @@ builder.Services.AddSwaggerGen(c =>
     c.ParameterFilter<SwaggerNullableParameterFilter>();
 });
 
+builder.Services.AddAuthentication(o =>
+{
+    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(cfg =>
+{
+    cfg.RequireHttpsMetadata = false;
+    cfg.SaveToken = true;
+
+    cfg.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = configuration["JwtTokenSettings:Issuer"],
+        ValidAudience = configuration["JwtTokenSettings:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtTokenSettings:Key"]))
+    };
+});
+
+
+
 var app = builder.Build();
 
 
@@ -115,7 +147,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+//use cor
+app.UseCors(VietokemanPolicy);
+
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

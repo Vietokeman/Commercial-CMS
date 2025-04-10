@@ -47,7 +47,7 @@ export class PostCategoryDetailComponent implements OnInit, OnDestroy {
   }
 
   public generateSlug() {
-    var slug = this.utilService.makeSeoTitle(this.form.get('name')?.value);
+    var slug = this.utilService.makeSeoTitle(this.form.get('name').value);
     this.form.controls['slug'].setValue(slug);
   }
 

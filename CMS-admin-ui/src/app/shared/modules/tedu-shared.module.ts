@@ -7,4 +7,4 @@ import { PermissionDirective } from './permission.directive';
   declarations: [ValidationMessageComponent, PermissionDirective],
   exports: [ValidationMessageComponent],
 })
-export class VietokemanSharedModule {}
+export class TeduSharedModule {}

@@ -19,8 +19,8 @@ import {
   TokenRequest,
 } from '../../api/admin-api.service.generated';
 import { Router } from '@angular/router';
-import { AlertService } from '../services/alert.service';
-import { BroadcastService } from '../services/boardcast.service';
+import { AlertService } from '../../../app/shared/services/alert.service';
+import { BroadcastService } from '../../../app/shared/services/boardcast.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

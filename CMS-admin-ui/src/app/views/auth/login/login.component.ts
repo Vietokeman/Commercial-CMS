@@ -14,7 +14,7 @@ import {
 import { AlertService } from '../../../shared/services/alert.service';
 import { UrlConstants } from '../../../shared/constants/url.constants';
 import { TokenStorageService } from '../../../shared/services/token-storage.service';
-import { from, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { BroadcastService } from '../../../shared/services/boardcast.service';
 @Component({
   selector: 'app-login',
@@ -63,18 +63,27 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: AuthenticatedResult) => {
           //Save token and refresh token to localstorage
-          if (res.token && res.refreshToken) {
-            this.tokenSerivce.saveToken(res.token);
-            this.tokenSerivce.saveRefreshToken(res.refreshToken);
-            this.tokenSerivce.saveUser(res);
-            //Redirect to dashboard
-            this.router.navigate([UrlConstants.HOME]);
-          }
+          this.tokenSerivce.saveToken(res.token ?? 'default-token');
+          this.tokenSerivce.saveRefreshToken(
+            res.refreshToken ?? 'default-token'
+          );
+          this.tokenSerivce.saveUser(res);
+          //Redirect to dashboard
+          this.router.navigate([UrlConstants.HOME]);
         },
         error: (error: any) => {
-          console.log(error);
-          this.alertService.showError('Đăng nhập không đúng.');
+          console.log('Lỗi đăng nhập:', error);
+          if (error.status === 401) {
+            this.alertService.showError('Thông tin xác thực không hợp lệ.');
+          } else {
+            this.alertService.showError('Đăng nhập không đúng.');
+          }
           this.loading = false;
+        },
+        complete: () => {
+          setTimeout(() => {
+            this.loading = false;
+          }, 3000);
         },
       });
   }

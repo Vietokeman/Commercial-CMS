@@ -90,3 +90,4 @@ E:\Code\Commercial_CMS\src\CMS.Api\bin\Debug\net8.0\CMS.Data.pdb
 E:\Code\Commercial_CMS\src\CMS.Api\bin\Debug\net8.0\CMS.Core.pdb
 E:\Code\Commercial_CMS\src\CMS.Api\bin\Debug\net8.0\AutoMapper.dll
 E:\Code\Commercial_CMS\src\CMS.Api\bin\Debug\net8.0\CMS.Api.staticwebassets.runtime.json
+E:\Code\Commercial_CMS\src\CMS.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

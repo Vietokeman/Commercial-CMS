@@ -13,7 +13,7 @@ import { BadgeModule } from 'primeng/badge';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
 import { KeyFilterModule } from 'primeng/keyfilter';
-import { VietokemanSharedModule } from '../../shared/modules/vietokeman-shared.module';
+import { TeduSharedModule } from '../../shared/modules/tedu-shared.module';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
@@ -42,7 +42,7 @@ import { TransactionComponent } from './transactions/transactions.component';
     CheckboxModule,
     TableModule,
     KeyFilterModule,
-    VietokemanSharedModule,
+    TeduSharedModule,
     ButtonModule,
     InputTextModule,
     InputTextareaModule,

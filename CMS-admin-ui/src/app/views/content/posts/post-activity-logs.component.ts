@@ -8,9 +8,15 @@ import {
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
 import {
+  AddPostSeriesRequest,
   AdminApiPostApiClient,
+  AdminApiSeriesApiClient,
   PostActivityLogDto,
+  PostDto,
+  SeriesInListDto,
 } from '../../../api/admin-api.service.generated';
+import { MessageConstants } from '../../../shared/constants/messages.constant';
+import { AlertService } from '../../../shared/services/alert.service';
 import { UtilityService } from '../../../shared/services/utility.service';
 
 @Component({
