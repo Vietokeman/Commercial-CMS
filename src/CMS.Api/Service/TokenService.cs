@@ -22,7 +22,7 @@ namespace CMS.Api.Service
         public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             //tao ra 1 doi tuong khoa bi mat token bang thuat toan hash sha256 
-            //.getbytes chuyen sang nytes 
+            //.getbytes chuyen sang bytes 
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtTokenSettings.Key));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             // tao ra chu ki va ki vao payload
@@ -74,5 +74,7 @@ namespace CMS.Api.Service
 
             return principal;
         }
+
+
     }
 }

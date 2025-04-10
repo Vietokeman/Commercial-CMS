@@ -7,17 +7,18 @@ import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
-  template: ` <p-toast position="top-center"></p-toast>
-    <p-confirmDialog
-      header="Xác nhận"
-      acceptLabel="Có"
-      rejectLabel="Không"
-      icon="pi pi-exclamation-triangle"
-    ></p-confirmDialog>
-    <router-outlet></router-outlet>`,
+  template: `
+  <p-toast position="top-center"></p-toast>
+  <p-confirmDialog
+  header="Xác nhận"
+  acceptLabel="Có"
+  rejectLabel="Không"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+  <router-outlet></router-outlet>`,
 })
 export class AppComponent implements OnInit {
-  title = 'Vietokeman Blog Admin UI';
+  title = 'Tedu Blog Admin UI';
 
   constructor(
     private router: Router,

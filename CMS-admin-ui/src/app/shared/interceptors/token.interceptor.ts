@@ -19,8 +19,8 @@ import {
   TokenRequest,
 } from '../../api/admin-api.service.generated';
 import { Router } from '@angular/router';
-import { AlertService } from '../services/alert.service';
-import { BroadcastService } from '../services/boardcast.service';
+import { AlertService } from '../../../app/shared/services/alert.service';
+import { BroadcastService } from '../../../app/shared/services/boardcast.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -90,7 +90,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (error.status === 400) {
       const errMessage = await new Response(error.error).text();
       this.alertService.showError(errMessage);
-      this.boardCastService.httpError.next(error);
+      this.boardCastService.httpError.next(true);
     }
 
     // Invalid token error
@@ -114,14 +114,14 @@ export class TokenInterceptor implements HttpInterceptor {
     else if (error.status === 403) {
       // Logout
       this.logout();
-      this.boardCastService.httpError.next(error);
+      this.boardCastService.httpError.next(true);
     }
     // Maintenance error
     else if (error.status === 500) {
       this.alertService.showError(
         'Hệ thống có lỗi xảy ra. Vui lòng liên hệ admin'
       );
-      this.boardCastService.httpError.next(error);
+      this.boardCastService.httpError.next(true);
     }
 
     return throwError(error);

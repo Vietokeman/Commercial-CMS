@@ -25,7 +25,7 @@ export class ChangeEmailComponent implements OnInit, OnDestroy {
   public btnDisabled = false;
   public saveBtnName: string;
   public closeBtnName: string;
-  public email: string;
+  public email?: string;
   formSavedEventEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(

@@ -7,13 +7,15 @@ const routes: Routes = [
     path: '',
     component: WidgetsComponent,
     data: {
-      title: 'Widgets',
-    },
-  },
+      title: 'Widgets'
+    }
+  }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class WidgetsRoutingModule {}
+export class WidgetsRoutingModule {
+}

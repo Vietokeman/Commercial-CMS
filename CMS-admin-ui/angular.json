@@ -1,15 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false,
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "analytics": false
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vietokeman-blog-admin-ui": {
+    "tedu-blog-admin-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -26,29 +23,22 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vietokeman-blog-admin-ui",
+            "outputPath": "dist/tedu-blog-admin-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "preserveSymlinks": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/quill/dist/quill.snow.css",
               "src/scss/styles.scss"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "chart.js"
-            ]
+            "allowedCommonJsDependencies": ["chart.js"]
           },
           "configurations": {
             "production": {
@@ -108,10 +98,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "vietokeman-blog-admin-ui:build:production"
+              "browserTarget": "tedu-blog-admin-ui:build:production"
             },
             "development": {
-              "browserTarget": "vietokeman-blog-admin-ui:build:development"
+              "browserTarget": "tedu-blog-admin-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -119,36 +109,19 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vietokeman-blog-admin-ui:build"
+            "browserTarget": "tedu-blog-admin-ui:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/scss/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/scss/styles.scss"],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
           }
         }
       }

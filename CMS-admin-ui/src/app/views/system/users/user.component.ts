@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
-import { DialogService, DynamicDialogComponent } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
 import { ChangeEmailComponent } from './change-email.component';
 import { RoleAssignComponent } from './role-assign.component';
@@ -19,16 +19,16 @@ import { MessageConstants } from '../../../shared/constants/messages.constant';
   templateUrl: './user.component.html',
 })
 export class UserComponent implements OnInit, OnDestroy {
-  //System variables
+  // System variables
   private ngUnsubscribe = new Subject<void>();
   public blockedPanel: boolean = false;
 
-  //Paging variables
+  // Paging variables
   public pageIndex: number = 1;
   public pageSize: number = 10;
   public totalCount?: number;
 
-  //Business variables
+  // Business variables
   public items?: UserDto[];
   public selectedItems: UserDto[] = [];
   public keyword: string = '';
@@ -49,7 +49,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
-  loadData(selectionId: string | null | undefined = null) {
+  loadData(selectionId = null) {
     this.toggleBlockUI(true);
     this.userService
       .getAllUsersPaging(this.keyword, this.pageIndex, this.pageSize)
@@ -74,10 +74,6 @@ export class UserComponent implements OnInit, OnDestroy {
       header: 'Thêm mới người dùng',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((data: UserDto) => {
       if (data) {
         this.alertService.showSuccess(MessageConstants.CREATED_OK_MSG);
@@ -94,42 +90,31 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   showEditModal() {
-    if (this.selectedItems.length == 0) {
+    if (this.selectedItems.length === 0) {
       this.alertService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
-    var id = this.selectedItems[0].id;
+    const id = this.selectedItems[0].id;
     const ref = this.dialogService.open(UserDetailComponent, {
-      data: {
-        id: id,
-      },
+      data: { id: id },
       header: 'Cập nhật người dùng',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((data: UserDto) => {
       if (data) {
         this.alertService.showSuccess(MessageConstants.UPDATED_OK_MSG);
         this.selectedItems = [];
-        this.loadData(data.id || null);
+        this.loadData(data.id);
       }
     });
   }
 
   deleteItems() {
-    if (this.selectedItems.length == 0) {
+    if (this.selectedItems.length === 0) {
       this.alertService.showError(MessageConstants.NOT_CHOOSE_ANY_RECORD);
       return;
     }
-    const ids: string[] = [];
-    this.selectedItems.forEach((element) => {
-      if (element.id) {
-        ids.push(element.id);
-      }
-    });
+    const ids = this.selectedItems.map((element) => element.id);
     this.confirmationService.confirm({
       message: MessageConstants.CONFIRM_DELETE_MSG,
       accept: () => {
@@ -138,7 +123,7 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteItemsConfirm(ids: string[]) {
+  deleteItemsConfirm(ids: any[]) {
     this.toggleBlockUI(true);
     this.userService.deleteUsers(ids).subscribe({
       next: () => {
@@ -155,16 +140,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
   setPassword(id: string) {
     const ref = this.dialogService.open(SetPasswordComponent, {
-      data: {
-        id: id,
-      },
+      data: { id: id },
       header: 'Đặt lại mật khẩu',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((result: boolean) => {
       if (result) {
         this.alertService.showSuccess(
@@ -175,18 +154,13 @@ export class UserComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   changeEmail(id: string) {
     const ref = this.dialogService.open(ChangeEmailComponent, {
-      data: {
-        id: id,
-      },
+      data: { id: id },
       header: 'Đặt lại email',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((result: boolean) => {
       if (result) {
         this.alertService.showSuccess(
@@ -200,16 +174,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
   assignRole(id: string) {
     const ref = this.dialogService.open(RoleAssignComponent, {
-      data: {
-        id: id,
-      },
+      data: { id: id },
       header: 'Gán quyền',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((result: boolean) => {
       if (result) {
         this.alertService.showSuccess(MessageConstants.ROLE_ASSIGN_SUCCESS_MSG);
@@ -219,7 +187,7 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private toggleBlockUI(enabled: boolean) {
-    if (enabled == true) {
+    if (enabled) {
       this.blockedPanel = true;
     } else {
       setTimeout(() => {

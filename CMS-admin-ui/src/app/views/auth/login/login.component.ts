@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   private ngUnsubscribe = new Subject<void>();
   loading = false;
-  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    this.broadCastService.httpError.asObservable().subscribe(() => {
+    this.broadCastService.httpError.asObservable().subscribe((values) => {
       this.loading = false;
     });
   }
@@ -50,58 +49,40 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-  login() {
-    if (!this.loginForm.valid) {
-      this.alertService.showError('Vui lòng nhập đầy đủ thông tin.');
-      this.errorMessage = 'Vui lòng nhập đầy đủ thông tin.';
-      return;
-    }
 
+  login() {
     this.loading = true;
-    const request: LoginRequest = new LoginRequest({
+    var request: LoginRequest = new LoginRequest({
       userName: this.loginForm.controls['userName'].value,
       password: this.loginForm.controls['password'].value,
     });
-    console.log(request);
 
     this.authApiClient
       .login(request)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (res: AuthenticatedResult) => {
-          this.loading = false;
-          this.errorMessage = null; // Xóa thông báo lỗi nếu thành công
-          if (res && res.token) {
-            this.tokenSerivce.saveToken(res.token);
-            if (res.refreshToken) {
-              this.tokenSerivce.saveRefreshToken(res.refreshToken);
-            }
-            this.tokenSerivce.saveUser(res);
-            this.router.navigate([UrlConstants.HOME]);
-          } else {
-            this.loading = false;
-            this.alertService.showError('Tài khoản hoặc mật khẩu không đúng.');
-            this.errorMessage = 'Tài khoản hoặc mật khẩu không đúng.';
-          }
+          //Save token and refresh token to localstorage
+          this.tokenSerivce.saveToken(res.token ?? 'default-token');
+          this.tokenSerivce.saveRefreshToken(
+            res.refreshToken ?? 'default-token'
+          );
+          this.tokenSerivce.saveUser(res);
+          //Redirect to dashboard
+          this.router.navigate([UrlConstants.HOME]);
         },
-        error: (error) => {
-          this.loading = false;
+        error: (error: any) => {
           console.log('Lỗi đăng nhập:', error);
           if (error.status === 401) {
-            this.alertService.showError('Tài khoản hoặc mật khẩu không đúng.');
-            this.errorMessage = 'Tài khoản hoặc mật khẩu không đúng.';
+            this.alertService.showError('Thông tin xác thực không hợp lệ.');
           } else {
-            this.alertService.showError(
-              'Đăng nhập không thành công. Vui lòng thử lại sau.'
-            );
-            this.errorMessage =
-              'Đăng nhập không thành công. Vui lòng thử lại sau.';
+            this.alertService.showError('Đăng nhập không đúng.');
           }
+          this.loading = false;
         },
         complete: () => {
           setTimeout(() => {
             this.loading = false;
-            this.errorMessage = null;
           }, 3000);
         },
       });

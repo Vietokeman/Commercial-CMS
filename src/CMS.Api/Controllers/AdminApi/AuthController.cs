@@ -27,7 +27,7 @@ namespace CMS.Api.Controllers.AdminApi
             _tokenService = tokenService;
             _roleManager = roleManager;
         }
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<ActionResult<AuthenticatedResult>> Login([FromBody] LoginRequest request)
         {
             //authentication
@@ -52,7 +52,6 @@ namespace CMS.Api.Controllers.AdminApi
 
             //authorization
             var roles = await _userManager.GetRolesAsync(user);
-            Console.WriteLine("User Roles: " + string.Join(",", roles));
 
             var permissions = await this.GetPermissionsByUserIdAsync(user.Id.ToString());
             var claims = new[]

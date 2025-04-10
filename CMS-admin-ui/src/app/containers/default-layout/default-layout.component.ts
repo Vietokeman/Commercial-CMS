@@ -19,10 +19,10 @@ export class DefaultLayoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    var user = this.tokenService.getUser();
+    const user = this.tokenService.getUser();
     if (user == null) this.router.navigate([UrlConstants.LOGIN]);
-    var permissions = JSON.parse(user.permissions);
-    for (var index = 0; index < navItems.length; index++) {
+    const permissions = JSON.parse(user?.permissions);
+    for (let index = 0; index < navItems.length; index++) {
       for (
         var childIndex = 0;
         childIndex < navItems[index].children?.length;

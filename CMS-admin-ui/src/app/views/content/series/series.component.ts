@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
-import { DialogService, DynamicDialogComponent } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
 import { MessageConstants } from '../../../shared/constants/messages.constant';
 import { SeriesDetailComponent } from './series-detail.component';
@@ -18,16 +18,13 @@ import { SeriesPostsComponent } from '../../../views/content/series/series-posts
   templateUrl: './series.component.html',
 })
 export class SeriesComponent implements OnInit, OnDestroy {
-  //System variables
   private ngUnsubscribe = new Subject<void>();
   public blockedPanel: boolean = false;
 
-  //Paging variables
   public pageIndex: number = 1;
   public pageSize: number = 10;
   public totalCount?: number;
 
-  //Business variables
   public items?: SeriesInListDto[];
   public selectedItems: SeriesInListDto[] = [];
   public keyword: string = '';
@@ -71,10 +68,6 @@ export class SeriesComponent implements OnInit, OnDestroy {
       header: 'Thêm mới series bài viết',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((data: SeriesDto) => {
       if (data) {
         this.notificationService.showSuccess(MessageConstants.CREATED_OK_MSG);
@@ -91,24 +84,18 @@ export class SeriesComponent implements OnInit, OnDestroy {
   }
 
   showEditModal() {
-    if (this.selectedItems.length == 0) {
+    if (this.selectedItems.length === 0) {
       this.notificationService.showError(
         MessageConstants.NOT_CHOOSE_ANY_RECORD
       );
       return;
     }
-    var id = this.selectedItems[0].id;
+    const id = this.selectedItems[0].id;
     const ref = this.dialogService.open(SeriesDetailComponent, {
-      data: {
-        id: id,
-      },
+      data: { id: id },
       header: 'Cập nhật series bài viết',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((data: SeriesDto) => {
       if (data) {
         this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
@@ -119,24 +106,18 @@ export class SeriesComponent implements OnInit, OnDestroy {
   }
 
   showPosts() {
-    if (this.selectedItems.length == 0) {
+    if (this.selectedItems.length === 0) {
       this.notificationService.showError(
         MessageConstants.NOT_CHOOSE_ANY_RECORD
       );
       return;
     }
-    var id = this.selectedItems[0].id;
+    const id = this.selectedItems[0].id;
     const ref = this.dialogService.open(SeriesPostsComponent, {
-      data: {
-        id: id,
-      },
+      data: { id: id },
       header: 'Quản lý danh sách bài viết',
       width: '70%',
     });
-    const dialogRef = this.dialogService.dialogComponentRefMap.get(ref);
-    const dynamicComponent = dialogRef?.instance as DynamicDialogComponent;
-    const ariaLabelledBy = dynamicComponent.getAriaLabelledBy();
-    dynamicComponent.getAriaLabelledBy = () => ariaLabelledBy;
     ref.onClose.subscribe((data: SeriesDto) => {
       if (data) {
         this.notificationService.showSuccess(MessageConstants.UPDATED_OK_MSG);
@@ -147,16 +128,13 @@ export class SeriesComponent implements OnInit, OnDestroy {
   }
 
   deleteItems() {
-    if (this.selectedItems.length == 0) {
+    if (this.selectedItems.length === 0) {
       this.notificationService.showError(
         MessageConstants.NOT_CHOOSE_ANY_RECORD
       );
       return;
     }
-    var ids = [];
-    this.selectedItems.forEach((element) => {
-      ids.push(element.id);
-    });
+    const ids = this.selectedItems.map((element) => element.id);
     this.confirmationService.confirm({
       message: MessageConstants.CONFIRM_DELETE_MSG,
       accept: () => {
@@ -180,8 +158,9 @@ export class SeriesComponent implements OnInit, OnDestroy {
       },
     });
   }
+
   private toggleBlockUI(enabled: boolean) {
-    if (enabled == true) {
+    if (enabled) {
       this.blockedPanel = true;
     } else {
       setTimeout(() => {

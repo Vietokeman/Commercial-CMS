@@ -1,16 +1,12 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BroadcastService {
-  public httpError: Subject<HttpErrorResponse> =
-    new Subject<HttpErrorResponse>();
+    public httpError: BehaviorSubject<boolean>;
 
-  constructor() {
-    //initialize it to false
-    this.httpError = new Subject<HttpErrorResponse>();
-  }
+    constructor() {
+        //initialize it to false
+        this.httpError = new BehaviorSubject<boolean>(false);
+    }
 }

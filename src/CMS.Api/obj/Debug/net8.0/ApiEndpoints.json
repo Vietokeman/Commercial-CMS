@@ -2,7 +2,7 @@
   {
     "ContainingType": "CMS.Api.Controllers.AdminApi.AuthController",
     "Method": "Login",
-    "RelativePath": "api/admin/auth/Login",
+    "RelativePath": "api/admin/auth/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -144,5 +144,51 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.TokenController",
+    "Method": "Refresh",
+    "RelativePath": "api/admin/token/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tokenRequest",
+        "Type": "CMS.Core.Models.Auth.TokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.Auth.AuthenticatedResult",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.TokenController",
+    "Method": "Revoke",
+    "RelativePath": "api/admin/token/revoke",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.TestController",
+    "Method": "TestAuthen",
+    "RelativePath": "api/Test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]
