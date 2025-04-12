@@ -52,7 +52,7 @@ namespace CMS.Api.Controllers.AdminApi
 
             return Ok();
         }
-
+        //Sự khác nhau giữa task <IactionResult> và <ActionResult<Dto> là  có dto có thể rõ kiểu trả về hơn  
         [HttpDelete]
         [Authorize(Permissions.Roles.Delete)]
         public async Task<IActionResult> DeleteRoles([FromQuery] Guid[] ids)
