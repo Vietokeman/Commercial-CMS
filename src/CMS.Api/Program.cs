@@ -1,4 +1,5 @@
 using CMS.Api;
+using CMS.Api.Authorization;
 using CMS.Api.Filters;
 using CMS.Api.Service;
 using CMS.Core.ConfigOptions;
@@ -9,17 +10,23 @@ using CMS.Data;
 using CMS.Data.Repositories;
 using CMS.Data.SeedWorks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var connectionString = configuration.GetConnectionString("DefaultConnection");
 var VietokemanPolicy = "VietokemanPolicy";
+
+//config permission
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
 
 //Add cor
 builder.Services.AddCors(o => o.AddPolicy(VietokemanPolicy, builder =>
@@ -65,6 +72,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
 
+
 // Auto DI for business services and repositories
 var services = typeof(PostRepository).Assembly.GetTypes()
     .Where(x => x.GetInterfaces()
@@ -105,7 +113,31 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API for CMS core domain. This domain keeps track of campaigns, campaign rules, and campaign execution."
     });
     c.ParameterFilter<SwaggerNullableParameterFilter>();
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = JwtBearerDefaults.AuthenticationScheme
+                }
+            },
+            new string[] {}
+        }
+    });
 });
+
 
 builder.Services.AddAuthentication(o =>
 {
