@@ -226,6 +226,32 @@
   },
   {
     "ContainingType": "CMS.Api.Controllers.AdminApi.RoleController",
+    "Method": "GetAllRolePermissions",
+    "RelativePath": "api/admin/role/{roleId}/permissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.System.PermissionDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.RoleController",
     "Method": "GetAllRoles",
     "RelativePath": "api/admin/role/all",
     "HttpMethod": "GET",
@@ -279,6 +305,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.RoleController",
+    "Method": "SavePermission",
+    "RelativePath": "api/admin/role/permissions",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "CMS.Core.System.PermissionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "CMS.Api.Controllers.AdminApi.TokenController",
