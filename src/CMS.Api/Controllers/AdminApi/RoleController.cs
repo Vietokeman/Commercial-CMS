@@ -3,8 +3,8 @@ using CMS.Api.Extensions;
 using CMS.Api.Filters;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models;
+using CMS.Core.Models.System;
 using CMS.Core.SeedWorks.Constants;
-using CMS.Core.System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -115,7 +115,6 @@ namespace CMS.Api.Controllers.AdminApi
             return Ok(model);
         }
 
-
         [HttpGet("{roleId}/permissions")]
         [Authorize(Permissions.Roles.View)]
         public async Task<ActionResult<PermissionDto>> GetAllRolePermissions(string roleId)
@@ -167,9 +166,7 @@ namespace CMS.Api.Controllers.AdminApi
             }
             return Ok();
         }
-
     }
-
 
 }
 

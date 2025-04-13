@@ -2,8 +2,8 @@
 using CMS.Api.Service;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models.Auth;
+using CMS.Core.Models.System;
 using CMS.Core.SeedWorks.Constants;
-using CMS.Core.System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;

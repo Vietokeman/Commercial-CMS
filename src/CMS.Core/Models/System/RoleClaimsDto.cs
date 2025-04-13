@@ -1,4 +1,4 @@
-﻿namespace CMS.Core.System
+﻿namespace CMS.Core.Models.System
 {
     public class RoleClaimsDto
     {

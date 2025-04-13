@@ -1,5 +1,5 @@
 ﻿using CMS.Core.Domain.Identity;
-using CMS.Core.System;
+using CMS.Core.Models.System;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
 using System.Reflection;
