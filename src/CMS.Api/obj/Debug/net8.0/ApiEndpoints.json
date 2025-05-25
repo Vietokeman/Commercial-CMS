@@ -155,7 +155,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "CMS.Core.System.CreateUpdateRoleRequest",
+        "Type": "CMS.Core.Models.System.CreateUpdateRoleRequest",
         "IsRequired": true
       }
     ],
@@ -192,7 +192,7 @@
       },
       {
         "Name": "request",
-        "Type": "CMS.Core.System.CreateUpdateRoleRequest",
+        "Type": "CMS.Core.Models.System.CreateUpdateRoleRequest",
         "IsRequired": true
       }
     ],
@@ -214,7 +214,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "CMS.Core.System.RoleDto",
+        "Type": "CMS.Core.Models.System.RoleDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -240,7 +240,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "CMS.Core.System.PermissionDto",
+        "Type": "CMS.Core.Models.System.PermissionDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -260,7 +260,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.System.RoleDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Models.System.RoleDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -296,7 +296,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "CMS.Core.Models.PageResult\u00601[[CMS.Core.System.RoleDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "CMS.Core.Models.PageResult\u00601[[CMS.Core.Models.System.RoleDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -316,7 +316,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "CMS.Core.System.PermissionDto",
+        "Type": "CMS.Core.Models.System.PermissionDto",
         "IsRequired": true
       }
     ],
@@ -356,6 +356,200 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "api/admin/user",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.System.CreateUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "DeleteUsers",
+    "RelativePath": "api/admin/user",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ids",
+        "Type": "System.String[]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/admin/user/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.System.UserDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/admin/user/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.System.UpdateUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "AssignRolesToUser",
+    "RelativePath": "api/admin/user/{id}/assign-users",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "roles",
+        "Type": "System.String[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "ChangeEmail",
+    "RelativePath": "api/admin/user/change-email/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.System.ChangeEmailRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "GetAllUsersPaging",
+    "RelativePath": "api/admin/user/paging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.PageResult\u00601[[CMS.Core.Models.System.UserDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "ChangeMyPassWord",
+    "RelativePath": "api/admin/user/password-change-current-user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.System.ChangeMyPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.UserController",
+    "Method": "SetPassword",
+    "RelativePath": "api/admin/user/set-password/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "CMS.Core.Models.System.SetPasswordRequest",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

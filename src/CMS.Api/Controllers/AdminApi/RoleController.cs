@@ -3,8 +3,8 @@ using CMS.Api.Extensions;
 using CMS.Api.Filters;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models;
+using CMS.Core.Models.System;
 using CMS.Core.SeedWorks.Constants;
-using CMS.Core.System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -111,10 +111,10 @@ namespace CMS.Api.Controllers.AdminApi
         [Authorize(Permissions.Roles.View)]
         public async Task<ActionResult<List<RoleDto>>> GetAllRoles()
         {
+            Console.WriteLine(Permissions.Roles.View);
             var model = await _mapper.ProjectTo<RoleDto>(_roleManager.Roles).ToListAsync();
             return Ok(model);
         }
-
 
         [HttpGet("{roleId}/permissions")]
         [Authorize(Permissions.Roles.View)]
@@ -167,9 +167,7 @@ namespace CMS.Api.Controllers.AdminApi
             }
             return Ok();
         }
-
     }
-
 
 }
 

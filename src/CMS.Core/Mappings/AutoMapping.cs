@@ -2,7 +2,7 @@
 using CMS.Core.Domain.Content;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models.Content;
-using CMS.Core.System;
+using CMS.Core.Models.System;
 
 namespace CMS.Core.Mappings
 {
@@ -14,6 +14,9 @@ namespace CMS.Core.Mappings
             CreateMap<Post, PostDto>();
             CreateMap<CreateUpdatePostRequest, Post>();
             CreateMap<AppRole, RoleDto>();
+            CreateMap<AppUser, UserDto>();
+            CreateMap<CreateUserRequest, AppUser>();
+            CreateMap<UpdateUserRequest, AppUser>();
         }
     }
 }
