@@ -61,7 +61,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   noSpecial: RegExp = /^[^<>*!_~]+$/;
   validationMessages = {
     fullName: [{ type: 'required', message: 'Bạn phải nhập tên' }],
-    email: [{ type: 'required', message: 'Bạn phải nhập email' }],
     userName: [{ type: 'required', message: 'Bạn phải nhập tài khoản' }],
     password: [
       { type: 'required', message: 'Bạn phải nhập mật khẩu' },
@@ -197,18 +196,18 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   setMode(mode: string) {
     if (mode == 'update') {
-      this.form.controls['userName'].clearValidators();
-      this.form.controls['userName'].disable();
-      this.form.controls['email'].clearValidators();
-      this.form.controls['email'].disable();
-      this.form.controls['password'].clearValidators();
-      this.form.controls['password'].disable();
+      // this.form.controls['userName'].clearValidators();
+      // this.form.controls['userName'].disable();
+      // this.form.controls['email'].clearValidators();
+      // this.form.controls['email'].disable();
+      // this.form.controls['password'].clearValidators();
+      // this.form.controls['password'].disable();
     } else if (mode == 'create') {
       this.form.controls['userName'].addValidators(Validators.required);
       this.form.controls['userName'].enable();
-      this.form.controls['email'].addValidators(Validators.required);
+      // this.form.controls['email'].addValidators(Validators.required);
       this.form.controls['email'].enable();
-      this.form.controls['password'].addValidators(Validators.required);
+      // this.form.controls['password'].addValidators(Validators.required);
       this.form.controls['password'].enable();
     }
   }

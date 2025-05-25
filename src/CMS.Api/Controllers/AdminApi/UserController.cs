@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using CMS.Api.Extensions;
 using CMS.Api.Filters;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models;
 using CMS.Core.Models.System;
-using CMS.Core.SeedWorks.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -118,6 +118,8 @@ namespace CMS.Api.Controllers.AdminApi
         public async Task<IActionResult> ChangeMyPassWord([FromBody] ChangeMyPasswordRequest request)
         {
             var user = await _userManager.FindByIdAsync(User.GetUserId().ToString());
+            //User có thể gọi getUserId để lấy id của người dùng hiện tại và phương thức này đã được định nghĩa trong lớp ClaimsPrincipal nó được map tới claimsprincipal
+
             if (user == null)
             {
                 return NotFound();
@@ -185,7 +187,7 @@ namespace CMS.Api.Controllers.AdminApi
 
         [HttpPut("{id}/assign-users")]
         [ValidateModel]
-        [Authorize(Permissions.Users.Edit)]
+        [Authorize(Users.Edit)]
         public async Task<IActionResult> AssignRolesToUser(string id, [FromBody] string[] roles)
         {
             var user = await _userManager.FindByIdAsync(id);
