@@ -16,6 +16,8 @@ namespace CMS.Data.SeedWorks
 
         public IPostRepository Posts { get; private set; }
 
+        public IPostCategoryRepository PostCategories { get; private set; }
+
         public async Task<int> CompleteAsync()
         {
             return await _context.SaveChangesAsync();

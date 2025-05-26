@@ -17,6 +17,8 @@ namespace CMS.Core.Mappings
             CreateMap<AppUser, UserDto>();
             CreateMap<CreateUserRequest, AppUser>();
             CreateMap<UpdateUserRequest, AppUser>();
+            CreateMap<PostCategory, PostCategoryDto>();
+            CreateMap<CreateUpdatePostCategoryRequest, PostCategory>();
         }
     }
 }
