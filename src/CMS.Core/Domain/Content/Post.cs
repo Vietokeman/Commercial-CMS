@@ -41,15 +41,26 @@ namespace CMS.Core.Domain.Content
         public double? RoyaltyAmount { get; set; }
         // tiền nhuận bút
         public PostStatus Status { get; set; }
+
+        [Required]
+        [Column(TypeName = "varchar(250)")]
+        public required string CategorySlug { get; set; }
+        [Required]
+        [MaxLength(250)]
+
+        public required string CategoryName { get; set; }
+        [Required]
+
+        public required string AuthorName { get; set; }
+        public required string AuthorUserName { get; set; }
     }
 
     public enum PostStatus
     {
-        Draft = 1,
-        Canceled = 2,
-        WaitingForApproval = 3,
-        Rejected = 4,
-        WaitingForPublish = 5,
-        Publish = 6
+        Draft = 0,
+        Pending = 1,
+        Rejected = 2,
+        Published = 3,
+
     }
 }

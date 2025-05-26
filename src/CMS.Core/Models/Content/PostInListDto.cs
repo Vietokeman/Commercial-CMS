@@ -13,5 +13,11 @@
         public int ViewCount { get; set; }
         public DateTime DateCreated { get; set; }
 
+        public required string CategorySlug { get; set; }
+
+        public required string CategoryName { get; set; }
+
+        public required string AuthorName { get; set; }
+        public required string AuthorUserName { get; set; }
     }
 }
