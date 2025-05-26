@@ -12,6 +12,7 @@ namespace CMS.Data.SeedWorks
         {
             _context = context;
             Posts = new PostRepository(context, mapper);
+            PostCategories = new PostCategoryRepository(context, mapper);
         }
 
         public IPostRepository Posts { get; private set; }

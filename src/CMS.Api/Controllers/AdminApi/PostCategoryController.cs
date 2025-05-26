@@ -38,6 +38,7 @@ namespace CMS.Api.Controllers.AdminApi
         public async Task<ActionResult<PageResult<PostCategoryDto>>> GetPostCategoriesPaging(string? keyword, int pageIndex, int pageSize)
         {
             var result = await _unitOfWork.PostCategories.GetPostCategorysPagingAsync(keyword, pageIndex, pageSize);
+            //var result = await _unitOfWork.PostCategories.GetPostCategorysPagingAsync(keyword, pageIndex, pageSize);
             return Ok(result);
         }
 
