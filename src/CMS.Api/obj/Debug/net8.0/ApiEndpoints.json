@@ -42,6 +42,115 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostCategoryController",
+    "Method": "GetPostCategories",
+    "RelativePath": "api/admin/post-category",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Models.Content.PostCategoryDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostCategoryController",
+    "Method": "CreatePostCategory",
+    "RelativePath": "api/admin/post-category",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Content.CreateUpdatePostCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostCategoryController",
+    "Method": "UpdatePostCategory",
+    "RelativePath": "api/admin/post-category/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Content.CreateUpdatePostCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostCategoryController",
+    "Method": "DeletePostCategories",
+    "RelativePath": "api/admin/post-category/{ids}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ids",
+        "Type": "System.Guid[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostCategoryController",
+    "Method": "GetPostCategoriesPaging",
+    "RelativePath": "api/admin/post-category/paging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.PageResult\u00601[[CMS.Core.Models.Content.PostCategoryDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
     "Method": "UpdatePost",
     "RelativePath": "api/admin/post/{id}",
