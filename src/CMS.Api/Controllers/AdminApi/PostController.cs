@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using CMS.Core.Domain.Content;
+using CMS.Core.Domain.Identity;
 using CMS.Core.Models;
 using CMS.Core.Models.Content;
 using CMS.Core.SeedWorks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.Api.Controllers.AdminApi
@@ -11,12 +13,14 @@ namespace CMS.Api.Controllers.AdminApi
     [ApiController]
     public class PostController : ControllerBase
     {
+        private readonly UserManager<AppUser> _userManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public PostController(IUnitOfWork unitOfWork, IMapper mapper)
+        public PostController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
         [HttpGet("paging")]

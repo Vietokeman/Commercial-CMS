@@ -50,8 +50,10 @@ namespace CMS.Core.SeedWorks.Constants
             public const string Create = "Permissions.Posts.Create";
             [Description("Sửa bài viết")]
             public const string Edit = "Permissions.Posts.Edit";
-            [Description("Xóa bài viết")]
+            [Description("Duyệt bài viết")]
             public const string Delete = "Permissions.Posts.Delete";
+            public const string Approve = "Permissions.Posts.Approve";
+
         }
 
         public static class Series
