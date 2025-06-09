@@ -41,8 +41,8 @@ namespace CMS.Api.Controllers.AdminApi
             var userId = User.GetUserId();
             var user = await _userManager.FindByIdAsync(userId.ToString());
             post.AuthorUserId = userId;
-            //post.AuthorName = user.GetFullName();
-            //post.AuthorUserName = user.UserName;
+            post.AuthorName = user.GetFullName();
+            post.AuthorUserName = user.UserName;
             _unitOfWork.Posts.Add(post);
 
             var result = await _unitOfWork.CompleteAsync();
