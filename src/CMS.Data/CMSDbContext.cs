@@ -1,6 +1,6 @@
 ﻿using CMS.Core.Domain.Content;
 using CMS.Core.Domain.Identity;
-using CMS.Core.Domain.Loyalty;
+using CMS.Core.Domain.Royalty;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

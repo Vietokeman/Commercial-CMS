@@ -5,10 +5,13 @@ using CMS.Api.Service;
 using CMS.Core.ConfigOptions;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models.Content;
+using CMS.Core.Repositories;
 using CMS.Core.SeedWorks;
+using CMS.Core.Services;
 using CMS.Data;
 using CMS.Data.Repositories;
 using CMS.Data.SeedWorks;
+using CMS.Data.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -96,6 +99,9 @@ builder.Services.AddAutoMapper(typeof(PostInListDto));
 builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
 builder.Services.Configure<MediaSettings>(configuration.GetSection("MediaSettings"));
 builder.Services.AddScoped<ITokenService, TokenService>();
+//register royalty
+builder.Services.AddScoped<IRoyaltyService, RoyaltyService>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 builder.Services.AddControllers();
 
