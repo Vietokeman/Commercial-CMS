@@ -53,7 +53,9 @@ namespace CMS.Core.Domain.Content
 
         public required string AuthorName { get; set; }
         public required string AuthorUserName { get; set; }
+        public DateTime? PaidDate { get; set; }
     }
+
 
     public enum PostStatus
     {

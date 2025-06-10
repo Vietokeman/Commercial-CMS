@@ -2,6 +2,7 @@
 using CMS.Core.Domain.Identity;
 using CMS.Core.Repositories;
 using CMS.Core.SeedWorks;
+using CMS.Core.Services;
 using CMS.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 
@@ -16,6 +17,7 @@ namespace CMS.Data.SeedWorks
             Posts = new PostRepository(context, mapper, userManager);
             PostCategories = new PostCategoryRepository(context, mapper);
             Series = new SeriesRepository(context, mapper);
+            Transactions = new TransactionRepository(context, mapper);
         }
 
         public IPostRepository Posts { get; private set; }
@@ -23,6 +25,10 @@ namespace CMS.Data.SeedWorks
         public IPostCategoryRepository PostCategories { get; private set; }
 
         public ISeriesRepository Series { get; private set; }
+
+        public ITransactionRepository Transactions { get; private set; }
+
+        public IRoyaltyService RoyaltyService { get; private set; }
 
         public async Task<int> CompleteAsync()
         {
