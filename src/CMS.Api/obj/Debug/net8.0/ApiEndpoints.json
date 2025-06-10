@@ -579,6 +579,170 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.RoyaltyController",
+    "Method": "PayRoyalty",
+    "RelativePath": "api/admin/royalty/{userId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.RoyaltyController",
+    "Method": "GetRoyaltyReportByMonth",
+    "RelativePath": "api/admin/royalty/Royalty-report-by-month",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "fromMonth",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "fromYear",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "toMonth",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "toYear",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Domain.Royalty.RoyaltyReportByMonthDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.RoyaltyController",
+    "Method": "GetRoyaltyReportByUser",
+    "RelativePath": "api/admin/royalty/Royalty-report-by-user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "fromMonth",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "fromYear",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "toMonth",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "toYear",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Domain.Royalty.RoyaltyReportByUserDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.RoyaltyController",
+    "Method": "GetTransactionHistory",
+    "RelativePath": "api/admin/royalty/transaction-histories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "fromMonth",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "fromYear",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "toMonth",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "toYear",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.PageResult\u00601[[CMS.Core.Models.Royalty.TransactionDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
     "Method": "CreateSeries",
     "RelativePath": "api/admin/series",
