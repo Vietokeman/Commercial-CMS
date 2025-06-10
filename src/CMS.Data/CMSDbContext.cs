@@ -1,5 +1,6 @@
 ﻿using CMS.Core.Domain.Content;
 using CMS.Core.Domain.Identity;
+using CMS.Core.Domain.Loyalty;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace CMS.Data
         public DbSet<Series> Series { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<PostInSeries> PostInSeries { get; set; }
+        public DbSet<Transaction> Transaction { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims")
