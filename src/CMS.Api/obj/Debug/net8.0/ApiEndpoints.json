@@ -26,6 +26,22 @@
     ]
   },
   {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.MediaController",
+    "Method": "UploadImage",
+    "RelativePath": "api/admin/media",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
     "Method": "CreatePost",
     "RelativePath": "api/admin/post",
@@ -37,6 +53,43 @@
         "Name": "request",
         "Type": "CMS.Core.Models.Content.CreateUpdatePostRequest",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "UpdatePost",
+    "RelativePath": "api/admin/post",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Content.CreateUpdatePostRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "DeletePosts",
+    "RelativePath": "api/admin/post",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ids",
+        "Type": "System.Guid[]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -152,27 +205,6 @@
   },
   {
     "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
-    "Method": "UpdatePost",
-    "RelativePath": "api/admin/post/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "CMS.Core.Models.Content.CreateUpdatePostRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
     "Method": "GetPostById",
     "RelativePath": "api/admin/post/{id}",
     "HttpMethod": "GET",
@@ -199,15 +231,57 @@
   },
   {
     "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
-    "Method": "DeletePosts",
-    "RelativePath": "api/admin/post/{ids}",
-    "HttpMethod": "DELETE",
+    "Method": "GetActivityLogs",
+    "RelativePath": "api/admin/post/activity-logs/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ids",
-        "Type": "System.Guid[]",
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Models.Content.PostActivityLogDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "SendToApprove",
+    "RelativePath": "api/admin/post/approval-submit/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "ApprovePost",
+    "RelativePath": "api/admin/post/approve/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -245,6 +319,79 @@
     "ReturnTypes": [
       {
         "Type": "CMS.Core.Models.PageResult\u00601[[CMS.Core.Models.Content.PostInListDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "ReturnBack",
+    "RelativePath": "api/admin/post/return-back/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "CMS.Core.Models.Content.ReturnBackRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "GetReason",
+    "RelativePath": "api/admin/post/return-reason/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.PostController",
+    "Method": "GetSeriesBelong",
+    "RelativePath": "api/admin/post/series-belong/{postId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Models.Content.SeriesInListDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -430,6 +577,199 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "CreateSeries",
+    "RelativePath": "api/admin/series",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Content.CreateUpdateSeriesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "UpdateSeries",
+    "RelativePath": "api/admin/series",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Content.CreateUpdateSeriesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "DeleteSeries",
+    "RelativePath": "api/admin/series",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ids",
+        "Type": "System.Guid[]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "GetAllSeries",
+    "RelativePath": "api/admin/series",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Models.Content.SeriesInListDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "GetSeriesById",
+    "RelativePath": "api/admin/series/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.Content.SeriesDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "GetSeriesPaging",
+    "RelativePath": "api/admin/series/paging",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "CMS.Core.Models.PageResult\u00601[[CMS.Core.Models.Content.SeriesInListDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "AddPostSeries",
+    "RelativePath": "api/admin/series/post-series",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Content.AddPostSeriesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "DeletePostSeries",
+    "RelativePath": "api/admin/series/post-series",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Core.Models.Content.AddPostSeriesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Api.Controllers.AdminApi.SeriesController",
+    "Method": "GetPostsInSeries",
+    "RelativePath": "api/admin/series/post-series/{seriesId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "seriesId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CMS.Core.Models.Content.PostInListDto, CMS.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "CMS.Api.Controllers.AdminApi.TokenController",

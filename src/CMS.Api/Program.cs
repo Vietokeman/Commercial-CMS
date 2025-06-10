@@ -94,6 +94,7 @@ builder.Services.AddAutoMapper(typeof(PostInListDto));
 
 // Authentication and Authorization
 builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
+builder.Services.Configure<MediaSettings>(configuration.GetSection("MediaSettings"));
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddControllers();
