@@ -1,6 +1,10 @@
 using CMS.Core.ConfigOptions;
 using CMS.Core.Domain.Identity;
+using CMS.Core.Models.Content;
+using CMS.Core.SeedWorks;
 using CMS.Data;
+using CMS.Data.Repositories;
+using CMS.Data.SeedWorks;
 using CMS.WebApp.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +23,30 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add service to the container
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
+
+// Auto Mapper service
+builder.Services.AddAutoMapper(typeof(PostInListDto));
+
+// Authentication and Authorization
+//no tu co usermanager cac thu roi
+// Auto DI for business services and repositories
+var services = typeof(PostRepository).Assembly.GetTypes()
+    .Where(x => x.GetInterfaces()
+        .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<,>))
+        && !x.IsAbstract && x.IsClass && x != typeof(RepositoryBase<,>));
+
+foreach (var service in services)
+{
+    var allInterfaces = service.GetInterfaces();
+    var directInterface = allInterfaces.Except(allInterfaces.SelectMany(t => t.GetInterfaces())).FirstOrDefault();
+    if (directInterface != null)
+    {
+        builder.Services.Add(new ServiceDescriptor(directInterface, service, ServiceLifetime.Scoped));
+    }
+}
 
 //setup custom 
 builder.Services.Configure<SystemConfig>(configuration.GetSection("SystemConfig"));
@@ -44,9 +72,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
