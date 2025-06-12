@@ -4,7 +4,7 @@ namespace CMS.Core.Models.Content
 {
     public class PostDto : PostInListDto
     {
-        private string? Content { get; set; }
+        public string? Content { get; set; }
 
         public Guid AuthorUserId { get; set; }
 

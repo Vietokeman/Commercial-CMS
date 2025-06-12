@@ -22,6 +22,11 @@ namespace CMS.WebApp.Controllers
             var posts = await _unitOfWork.Posts.GetPostsByCategoryPaging(categorySlug, page);
             var category = await _unitOfWork.PostCategories.GetBySlug(categorySlug);
 
+            if (category == null || posts == null)
+            {
+                return NotFound(); // hoặc return về trang lỗi
+            }
+
             var viewModel = new PostsListByCategoryViewModel
             {
                 Posts = posts,
@@ -30,6 +35,7 @@ namespace CMS.WebApp.Controllers
             return View(viewModel);
         }
 
+
         [Route("tags/{tagSlug}")]
         public IActionResult ListByTag([FromRoute] string categorySlug, [FromQuery] int? page = 1)
         {
@@ -37,12 +43,17 @@ namespace CMS.WebApp.Controllers
         }
 
         [Route("post/{slug}")]
-        public IActionResult Details([FromRoute] string slug)
+        public async Task<IActionResult> Details([FromRoute] string slug)
         {
-            // Here you would typically fetch the post details from the database using the slug
-            // For now, we will just return a view with the slug
-            ViewBag.Slug = slug;
-            return View();
+            var posts = await _unitOfWork.Posts.GetBySlug(slug);
+            var category = await _unitOfWork.PostCategories.GetBySlug(posts.CategorySlug);
+
+            var viewModel = new PostDetailViewModel
+            {
+                Post = posts,
+                Category = category,
+            };
+            return View(viewModel);
         }
     }
 }

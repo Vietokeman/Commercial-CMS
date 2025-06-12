@@ -19,7 +19,7 @@ namespace CMS.Core.Repositories
         Task<List<Post>> GetListUnpaidPublishPosts(Guid userId);
         Task<List<PostInListDto>> GetLastestPublishPost(int top);
 
-        Task<PageResult<PostInListDto>>
-            GetAllPaging(string? keyword, Guid currentUserId, Guid? categoryId, int PageIndex = 1, int pageSize = 10);
+        Task<PageResult<PostInListDto>> GetAllPaging(string? keyword, Guid currentUserId, Guid? categoryId, int PageIndex = 1, int pageSize = 10);
+        Task<PostDto> GetBySlug(string slug);
     }
 }
