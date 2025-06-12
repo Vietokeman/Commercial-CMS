@@ -16,6 +16,17 @@ namespace CMS.Data.Repositories
             _mapper = mapper;
         }
 
+        public async Task<PostCategoryDto> GetBySlug(string slug)
+        {
+            var category = await _context.PostCateGories
+                .FirstOrDefaultAsync(x => x.Slug == slug);
+            if (category == null)
+            {
+                return null;
+            }
+            return _mapper.Map<PostCategoryDto>(category);
+        }
+
         public async Task<PageResult<PostCategoryDto>> GetPostCategorysPagingAsync(string? keyword, int PageIndex = 1, int pageSize = 10)
         {
             var query = _context.PostCateGories.AsQueryable();

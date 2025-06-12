@@ -204,5 +204,29 @@ namespace CMS.Data.Repositories
                .OrderByDescending(x => x.DateCreated);
             return await _mapper.ProjectTo<PostInListDto>(query).ToListAsync();
         }
+
+        public async Task<PageResult<PostInListDto>> GetPostsByCategoryPaging(string categorySlug, int PageIndex = 1, int pageSize = 10)
+        {
+            var query = _context.Posts.AsQueryable();
+
+            if (!string.IsNullOrEmpty(categorySlug))
+            {
+                query = query.Where(x => x.CategorySlug == categorySlug);
+            }
+
+            var totalRow = await query.CountAsync();
+
+            query = query.OrderByDescending(x => x.DateCreated)
+               .Skip((PageIndex - 1) * pageSize)
+               .Take(pageSize);
+
+            return new PageResult<PostInListDto>
+            {
+                Results = await _mapper.ProjectTo<PostInListDto>(query).ToListAsync(),
+                CurrentPage = PageIndex,
+                RowCount = totalRow,
+                PageSize = pageSize
+            };
+        }
     }
 }
