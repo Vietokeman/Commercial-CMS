@@ -222,11 +222,17 @@ namespace CMS.Data.Repositories
 
             return new PageResult<PostInListDto>
             {
-                Results = await _mapper.ProjectTo<PostInListDto>(query).ToListAsync(),
+                Results = await _mapper.ProjectTo<PostInListDto>(query).ToListAsync(),// phân trang số lượng lớn khi dữ liệu lớn, không load hết vào ram, chỉ lấy những trường mà nó cần
                 CurrentPage = PageIndex,
                 RowCount = totalRow,
                 PageSize = pageSize
             };
+        }
+
+        public async Task<PostDto> GetBySlug(string slug)
+        {
+            var query = await _context.Posts.FirstOrDefaultAsync(x => x.Slug == slug);// lấy hết tất cả các trường
+            return _mapper.Map<PostDto>(query);// dùng khi đã có sẵn object trong ram
         }
     }
 }

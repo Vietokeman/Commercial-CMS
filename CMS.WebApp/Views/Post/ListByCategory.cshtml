@@ -1,6 +1,6 @@
-﻿@model PostsListByCategoryViewModel 
+﻿                                                                                          @model PostsListByCategoryViewModel
 @{
-    ViewData["Title"] = Model.Category.Name + (Model.Posts.CurrentPage > 1 ? $" - Trang {Model.Posts.CurrentPage}" : "");
+    ViewData["Title"] = Model.Category.Name;
     ViewData["Description"] = Model.Category.SeoDescription + (Model.Posts.CurrentPage > 1 ? $" - Trang {Model.Posts.CurrentPage}" : "");
 }
 <!-- Page Header-->

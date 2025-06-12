@@ -23,7 +23,7 @@ namespace CMS.Core.Domain.Content
         public Guid CategoryId { get; set; }
         [MaxLength(500)]
         public string? Thumbnail { get; set; }
-        private string? Content { get; set; }
+        public string? Content { get; set; }
         [MaxLength(250)]
 
         public Guid AuthorUserId { get; set; }
