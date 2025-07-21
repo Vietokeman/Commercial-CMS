@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Code\\Commercial_CMS\\src\\CMS.Core\\CMS.Core.csproj": {}
+    "E:\\Code\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj": {}
   },
   "projects": {
-    "E:\\Code\\Commercial_CMS\\src\\CMS.Core\\CMS.Core.csproj": {
+    "E:\\Code\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Code\\Commercial_CMS\\src\\CMS.Core\\CMS.Core.csproj",
+        "projectUniqueName": "E:\\Code\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj",
         "projectName": "CMS.Core",
-        "projectPath": "E:\\Code\\Commercial_CMS\\src\\CMS.Core\\CMS.Core.csproj",
+        "projectPath": "E:\\Code\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj",
         "packagesPath": "C:\\Users\\Viet\\.nuget\\packages\\",
-        "outputPath": "E:\\Code\\Commercial_CMS\\src\\CMS.Core\\obj\\",
+        "outputPath": "E:\\Code\\Commercial-CMS\\src\\CMS.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Viet\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,6 +53,22 @@
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.14, )"
+            },
+            "Microsoft.Extensions.Hosting.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Serilog.Enrichers.Environment": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.Settings.Configuration": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
