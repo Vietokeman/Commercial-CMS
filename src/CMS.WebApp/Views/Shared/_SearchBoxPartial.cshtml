@@ -1,0 +1,14 @@
+﻿@model CMS.Core.Models.Content.SearchInputModel
+
+<form method="get" class="mb-4 row g-2">
+    <div class="col-md-4">
+        <input type="text" name="Keyword" value="@Model?.Keyword" class="form-control" placeholder="Từ khóa bài viết">
+    </div>
+    
+    <div class="col-md-4">
+        <input type="text" name="Type" value="@Model?.Type" class="form-control" placeholder="Loại bài viết">
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Tìm</button>
+    </div>
+</form>

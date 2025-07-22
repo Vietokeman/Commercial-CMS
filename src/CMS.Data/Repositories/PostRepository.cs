@@ -234,5 +234,49 @@ namespace CMS.Data.Repositories
             var query = await _context.Posts.FirstOrDefaultAsync(x => x.Slug == slug);// lấy hết tất cả các trường
             return _mapper.Map<PostDto>(query);// dùng khi đã có sẵn object trong ram
         }
+        public async Task<List<PostInListDto>> SearchPostsBySlugAsync(string slug)
+        {
+            return await _context.Posts
+                .Where(p => p.Slug.Contains(slug))
+                .Select(p => new PostInListDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Slug = p.Slug,
+                    Decription = p.Decription,
+                    CategoryId = p.CategoryId,
+                    Thumbnail = p.Thumbnail,
+                    ViewCount = p.ViewCount,
+                    DateCreated = p.DateCreated,
+                    CategorySlug = p.CategorySlug,
+                    CategoryName = p.CategoryName,
+                    AuthorName = p.AuthorName,
+                    AuthorUserName = p.AuthorUserName
+                })
+                .ToListAsync();
+        }
+
+        public async Task<List<PostInListDto>> SearchPostsByCategorySlugAsync(string categorySlug)
+        {
+            return await _context.Posts
+                .Where(p => p.CategorySlug.Contains(categorySlug))
+                .Select(p => new PostInListDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Slug = p.Slug,
+                    Decription = p.Decription,
+                    CategoryId = p.CategoryId,
+                    Thumbnail = p.Thumbnail,
+                    ViewCount = p.ViewCount,
+                    DateCreated = p.DateCreated,
+                    CategorySlug = p.CategorySlug,
+                    CategoryName = p.CategoryName,
+                    AuthorName = p.AuthorName,
+                    AuthorUserName = p.AuthorUserName
+                })
+                .ToListAsync();
+        }
+
     }
 }

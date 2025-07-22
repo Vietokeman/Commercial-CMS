@@ -21,5 +21,8 @@ namespace CMS.Core.Repositories
 
         Task<PageResult<PostInListDto>> GetAllPaging(string? keyword, Guid currentUserId, Guid? categoryId, int PageIndex = 1, int pageSize = 10);
         Task<PostDto> GetBySlug(string slug);
+        Task<List<PostInListDto>> SearchPostsBySlugAsync(string slug);
+        Task<List<PostInListDto>> SearchPostsByCategorySlugAsync(string categorySlug);
+
     }
 }

@@ -1,0 +1,39 @@
+2025-07-22 04:11:51.133 +07:00 [INF] 🚀 CMS Web API started successfully.
+2025-07-22 04:11:52.276 +07:00 [INF] ➡️ HTTP GET /swagger/index.html
+2025-07-22 04:11:52.334 +07:00 [INF] ⬅️ HTTP GET /swagger/index.html responded 200
+2025-07-22 04:11:53.924 +07:00 [INF] ➡️ HTTP GET /swagger/v1/swagger.json
+2025-07-22 04:11:54.057 +07:00 [INF] ⬅️ HTTP GET /swagger/v1/swagger.json responded 200
+2025-07-22 04:12:35.271 +07:00 [INF]  HTTP GET /swagger/index.html
+2025-07-22 04:12:35.280 +07:00 [INF] ⬅ HTTP GET /swagger/index.html responded 200
+2025-07-22 04:12:35.948 +07:00 [INF]  HTTP GET /swagger/v1/swagger.json
+2025-07-22 04:12:35.963 +07:00 [INF]  HTTP GET /swagger/favicon-32x32.png
+2025-07-22 04:12:35.971 +07:00 [INF] ⬅ HTTP GET /swagger/favicon-32x32.png responded 200
+2025-07-22 04:12:35.975 +07:00 [INF] ⬅ HTTP GET /swagger/v1/swagger.json responded 200
+2025-07-22 04:12:45.788 +07:00 [INF]  HTTP GET /swagger/index.html
+2025-07-22 04:12:45.797 +07:00 [INF]  HTTP GET /swagger/index.html responded 200
+2025-07-22 04:12:46.232 +07:00 [INF]  HTTP GET /swagger/v1/swagger.json
+2025-07-22 04:12:46.257 +07:00 [INF]  HTTP GET /swagger/v1/swagger.json responded 200
+[15:42:55 INF] Starting web host
+[15:43:01 INF] HTTP GET /swagger/index.html responded 200 in 95.0408 ms
+[15:43:03 INF] HTTP GET /swagger/AdminAPI/swagger.json responded 200 in 160.9715 ms
+[15:43:53 INF] Starting web host
+[15:43:56 INF] HTTP GET /swagger/index.html responded 200 in 101.9539 ms
+[15:43:59 INF] HTTP GET /swagger/AdminAPI/swagger.json responded 200 in 251.2443 ms
+[16:02:00 INF] HTTP OPTIONS /api/admin/auth/login responded 204 in 5.9771 ms
+[16:02:02 INF] HTTP POST /api/admin/auth/login responded 200 in 2071.8274 ms
+[16:02:06 INF] HTTP OPTIONS /api/admin/post-category/paging responded 204 in 0.9808 ms
+[16:02:06 INF] HTTP GET /api/admin/post-category/paging responded 200 in 387.7265 ms
+[16:02:33 INF] HTTP OPTIONS /api/admin/post-category responded 204 in 0.2940 ms
+[16:02:33 INF] HTTP OPTIONS /api/admin/post/paging responded 204 in 1.5067 ms
+[16:02:33 INF] HTTP GET /api/admin/post/paging responded 200 in 143.7892 ms
+[16:02:33 INF] HTTP GET /api/admin/post-category responded 200 in 169.1970 ms
+[16:02:35 INF] HTTP OPTIONS /api/admin/series/paging responded 204 in 0.3462 ms
+[16:02:35 INF] HTTP GET /api/admin/series/paging responded 200 in 41.7431 ms
+[16:02:40 INF] HTTP OPTIONS /api/admin/user/paging responded 204 in 0.1366 ms
+[16:02:40 INF] HTTP GET /api/admin/user/paging responded 200 in 43.4340 ms
+[16:02:46 INF] HTTP OPTIONS /api/admin/role/paging responded 204 in 0.1887 ms
+[16:02:46 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[16:02:46 WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+[16:02:46 INF] HTTP GET /api/admin/role/paging responded 200 in 63.0912 ms
+[16:02:48 INF] HTTP OPTIONS /api/admin/role/fb77f595-da1f-48ea-82a9-6dca3382caa0/permissions responded 204 in 0.1866 ms
+[16:02:48 INF] HTTP GET /api/admin/role/fb77f595-da1f-48ea-82a9-6dca3382caa0/permissions responded 200 in 32.4125 ms

@@ -3743,6 +3743,8 @@
       "CMS.Data >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.15",
       "Serilog.AspNetCore >= 8.0.0",
+      "Serilog.Enrichers.Environment >= 3.0.1",
+      "Serilog.Settings.Configuration >= 9.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -3805,6 +3807,14 @@
           "Serilog.AspNetCore": {
             "target": "Package",
             "version": "[8.0.0, )"
+          },
+          "Serilog.Enrichers.Environment": {
+            "target": "Package",
+            "version": "[3.0.1, )"
+          },
+          "Serilog.Settings.Configuration": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

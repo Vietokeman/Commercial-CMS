@@ -1,0 +1,15 @@
+[04:11:51 INF] 🚀 CMS Web API started successfully.
+[04:11:52 INF] ➡️ HTTP GET /swagger/index.html
+[04:11:52 INF] ⬅️ HTTP GET /swagger/index.html responded 200
+[04:11:53 INF] ➡️ HTTP GET /swagger/v1/swagger.json
+[04:11:54 INF] ⬅️ HTTP GET /swagger/v1/swagger.json responded 200
+[04:12:35 INF]  HTTP GET /swagger/index.html
+[04:12:35 INF] ⬅ HTTP GET /swagger/index.html responded 200
+[04:12:35 INF]  HTTP GET /swagger/v1/swagger.json
+[04:12:35 INF]  HTTP GET /swagger/favicon-32x32.png
+[04:12:35 INF] ⬅ HTTP GET /swagger/favicon-32x32.png responded 200
+[04:12:35 INF] ⬅ HTTP GET /swagger/v1/swagger.json responded 200
+[04:12:45 INF]  HTTP GET /swagger/index.html
+[04:12:45 INF]  HTTP GET /swagger/index.html responded 200
+[04:12:46 INF]  HTTP GET /swagger/v1/swagger.json
+[04:12:46 INF]  HTTP GET /swagger/v1/swagger.json responded 200

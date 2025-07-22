@@ -5,6 +5,7 @@ using CMS.Core.SeedWorks;
 using CMS.Data;
 using CMS.Data.Repositories;
 using CMS.Data.SeedWorks;
+using CMS.Data.Strategies;
 using CMS.WebApp.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,8 @@ foreach (var service in services)
 
 //setup custom 
 builder.Services.Configure<SystemConfig>(configuration.GetSection("SystemConfig"));
-
+builder.Services.AddScoped<SearchBySlugStrategy>();
+builder.Services.AddScoped<SearchByCategoryStrategy>();
 //set up DB for web app
 builder.Services.AddDbContext<CMSDbContext>(o => o.UseSqlServer(connectionString));
 builder.Services.AddIdentity<AppUser, AppRole>(o => o.SignIn.RequireConfirmedAccount = false)

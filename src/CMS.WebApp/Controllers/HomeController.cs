@@ -1,4 +1,6 @@
+﻿using CMS.Core.Models.Content;
 using CMS.Core.SeedWorks;
+using CMS.Data.Strategies;
 using CMS.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,23 +11,49 @@ namespace CMS.WebApp.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<HomeController> _logger;
+        private readonly SearchBySlugStrategy _searchBySlugStrategy;
+        private readonly SearchByCategoryStrategy _searchByCategoryStrategy;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IUnitOfWork unitOfWork,
+            SearchBySlugStrategy searchBySlugStrategy,
+            SearchByCategoryStrategy searchByCategoryStrategy)
         {
             _logger = logger;
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _searchBySlugStrategy = searchBySlugStrategy;
+            _searchByCategoryStrategy = searchByCategoryStrategy;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] SearchInputModel searchInput)
         {
-            //var viewModel = new HomeViewModel();
-            //viewModel.LatestPosts = await _unitOfWork.Posts.GetLastestPublishPost(5);
-            var viewModel = new HomeViewModel()
-            {
-                LatestPosts = await _unitOfWork.Posts.GetLastestPublishPost(5)
+            var posts = new List<PostInListDto>();
 
+            var context = new SearchContext(_searchBySlugStrategy);
+
+            if (!string.IsNullOrWhiteSpace(searchInput?.CategorySlug))
+            {
+                context.SetStrategy(_searchByCategoryStrategy);
+                posts = await context.SearchAsync(searchInput.CategorySlug);
+            }
+            else if (!string.IsNullOrWhiteSpace(searchInput?.Keyword))
+            {
+                context.SetStrategy(_searchBySlugStrategy);
+                posts = await context.SearchAsync(searchInput.Keyword);
+            }
+            else
+            {
+                posts = await _unitOfWork.Posts.GetLastestPublishPost(5);
+            }
+
+            var viewModel = new HomeViewModel
+            {
+                SearchInput = searchInput,
+                LatestPosts = posts
             };
-            Console.WriteLine(viewModel);
+
+
             return View(viewModel);
         }
 
