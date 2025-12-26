@@ -29,5 +29,14 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
+# Build artifacts
+*.cache
+*.nuget.cache
+*.assets.cache
+**/obj/**
+**/bin/**
+**/Debug/**
+**/Release/**
+
 # Visual Studio 2015
 .vs/
