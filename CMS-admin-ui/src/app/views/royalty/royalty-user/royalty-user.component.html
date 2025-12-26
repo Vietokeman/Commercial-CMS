@@ -1,84 +1,222 @@
 <div class="animated fadeIn">
-    <p-panel #pnl [style]="{'margin-bottom':'10px'}">
-      <p-header>
-        Nhuận bút theo tác giả
-      </p-header>
-      <div class="row">
-        <div class="col">
-          <div class="row">
-            <div class="col-3">
-              <input id="txtUserName" pInputText (keyup.enter)="loadData()" pInputText [(ngModel)]="userName"
-                placeholder="Nhập tài khoản..." type="text">
-            </div>
-            <div class="col-7">
-              <div class="row">
-                <div class="col-3">
-                  <p-inputNumber id="fromMonth" [(ngModel)]="fromMonth" class="number">
-                  </p-inputNumber>
-                </div>
-                <div class="col-3">
-                  <p-inputNumber id="fromYear" [(ngModel)]="fromYear" class="number">
-                  </p-inputNumber>
-                </div>
-                <div class="col-3">
-                  <p-inputNumber id="toMonth" [(ngModel)]="toMonth" class="number">
-                  </p-inputNumber>
-                </div>
-                <div class="col-3">
-                  <p-inputNumber id="toYear" [(ngModel)]="toYear" class="number">
-                  </p-inputNumber>
-                </div>
+  <p-panel #pnl [style]="{'margin-bottom':'20px'}">
+    <p-header>
+      <div class="d-flex align-items-center">
+        <i class="pi pi-money-bill me-2" style="font-size: 1.5rem;"></i>
+        <span>Báo cáo nhuận bút theo tác giả</span>
+      </div>
+    </p-header>
+    
+    <!-- Search and Filter Section -->
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">
+                  <i class="pi pi-search me-1"></i>Tài khoản
+                </label>
+                <input id="txtUserName" class="form-control" pInputText (keyup.enter)="loadData()" 
+                  [(ngModel)]="userName" placeholder="Nhập tài khoản..." type="text">
+              </div>
+              
+              <div class="col-md-2">
+                <label class="form-label fw-semibold">
+                  <i class="pi pi-calendar me-1"></i>Từ tháng
+                </label>
+                <p-inputNumber id="fromMonth" [(ngModel)]="fromMonth" [min]="1" [max]="12" 
+                  [showButtons]="true" class="w-100"></p-inputNumber>
+              </div>
+              
+              <div class="col-md-2">
+                <label class="form-label fw-semibold">Năm</label>
+                <p-inputNumber id="fromYear" [(ngModel)]="fromYear" [min]="2020" [max]="2030" 
+                  [showButtons]="true" class="w-100"></p-inputNumber>
+              </div>
+              
+              <div class="col-md-2">
+                <label class="form-label fw-semibold">
+                  <i class="pi pi-calendar me-1"></i>Đến tháng
+                </label>
+                <p-inputNumber id="toMonth" [(ngModel)]="toMonth" [min]="1" [max]="12" 
+                  [showButtons]="true" class="w-100"></p-inputNumber>
+              </div>
+              
+              <div class="col-md-2">
+                <label class="form-label fw-semibold">Năm</label>
+                <p-inputNumber id="toYear" [(ngModel)]="toYear" [min]="2020" [max]="2030" 
+                  [showButtons]="true" class="w-100"></p-inputNumber>
+              </div>
+              
+              <div class="col-md-1 d-flex align-items-end">
+                <button type="button" class="btn btn-primary w-100" (click)="loadData()">
+                  <i class="pi pi-search me-1"></i>Tìm
+                </button>
               </div>
             </div>
-            <div class="col-2">
-              <button type="button" pButton (click)="loadData()">Tìm</button>
-            </div>
           </div>
-  
         </div>
       </div>
-      <div class="row mt-3">
-        <p-table #dt [value]="items" selectionMode="multiple" dataKey="id" [metaKeySelection]="true" [responsive]="true">
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4" *ngIf="items && items.length > 0">
+      <div class="col-md-3">
+        <div class="stats-card gradient-info text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="stats-label">Tổng tác giả</div>
+              <div class="stats-value">{{items.length}}</div>
+            </div>
+            <div class="stats-icon bg-white bg-opacity-25">
+              <i class="pi pi-users"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="stats-card gradient-success text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="stats-label">Bài đã trả</div>
+              <div class="stats-value">{{getTotalPaidPosts()}}</div>
+            </div>
+            <div class="stats-icon bg-white bg-opacity-25">
+              <i class="pi pi-check-circle"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="stats-card gradient-warning text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="stats-label">Bài chưa trả</div>
+              <div class="stats-value">{{getTotalUnpaidPosts()}}</div>
+            </div>
+            <div class="stats-icon bg-white bg-opacity-25">
+              <i class="pi pi-clock"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="stats-card gradient-primary text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="stats-label">Tổng bài viết</div>
+              <div class="stats-value">{{getTotalPublishedPosts()}}</div>
+            </div>
+            <div class="stats-icon bg-white bg-opacity-25">
+              <i class="pi pi-file"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="row">
+      <div class="col-12">
+        <p-table #dt [value]="items" selectionMode="multiple" dataKey="userId" 
+          [metaKeySelection]="true" [responsive]="true" styleClass="p-datatable-striped">
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 10px">
+              <th style="width: 50px">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th>Tài khoản</th>
-              <th>Bài nháp</th>
-              <th>Bài chờ duyệt</th>
-              <th>Bài bị trả</th>
-              <th>Tổng bài đăng</th>
-              <th>Đã trả</th>
-              <th>Chưa trả</th>
-              <th></th>
+              <th>
+                <i class="pi pi-user me-2"></i>Tác giả
+              </th>
+              <th class="text-center">
+                <i class="pi pi-file-edit me-2"></i>Nháp
+              </th>
+              <th class="text-center">
+                <i class="pi pi-clock me-2"></i>Chờ duyệt
+              </th>
+              <th class="text-center">
+                <i class="pi pi-times-circle me-2"></i>Bị trả
+              </th>
+              <th class="text-center">
+                <i class="pi pi-check-circle me-2"></i>Đã đăng
+              </th>
+              <th class="text-center">
+                <i class="pi pi-money-bill me-2"></i>Đã trả
+              </th>
+              <th class="text-center">
+                <i class="pi pi-hourglass me-2"></i>Chưa trả
+              </th>
+              <th class="text-center">Thao tác</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-row>
             <tr [pSelectableRow]="row">
-              <td style="width: 10px"><span class="ui-column-title"></span>
-                <p-tableCheckbox [value]="row"></p-tableCheckbox>
-              </td>
-              <td>{{row.userName}}</td>
-              <td>{{row.numberOfDraftPosts | number}}</td>
-              <td>{{row.numberOfWaitingApprovalPosts | number}}</td>
-              <td>{{row.numberOfRejectedPosts | number}}</td>
-              <td>{{row.numberOfPublishPosts | number}}</td>
-              <td>{{row.numberOfPaidPublishPosts | number}}</td>
-              <td>{{row.numberOfUnpaidPublishPosts | number}}</td>
+              <td><p-tableCheckbox [value]="row"></p-tableCheckbox></td>
               <td>
-                <button *ngIf="row.numberOfUnpaidPublishPosts > 0" pButton pRipple type="button" icon="pi pi-forward"
-                  pTooltip="Gửi tiền" tooltipPosition="top" (click)="payForUser(row.userId)" appPermission
-                  appPolicy="Permissons.Royalty.Pay" class="p-button-rounded p-button-text p-button-danger"></button>
+                <div class="d-flex align-items-center">
+                  <div class="avatar rounded-circle bg-primary text-white me-2" 
+                    style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+                    {{row.userName?.charAt(0).toUpperCase()}}
+                  </div>
+                  <strong>{{row.userName}}</strong>
+                </div>
+              </td>
+              <td class="text-center">
+                <p-badge [value]="row.numberOfDraftPosts" severity="secondary"></p-badge>
+              </td>
+              <td class="text-center">
+                <p-badge [value]="row.numberOfWaitingApprovalPosts" severity="warning"></p-badge>
+              </td>
+              <td class="text-center">
+                <p-badge [value]="row.numberOfRejectedPosts" severity="danger"></p-badge>
+              </td>
+              <td class="text-center">
+                <p-badge [value]="row.numberOfPublishPosts" severity="success"></p-badge>
+              </td>
+              <td class="text-center">
+                <p-badge [value]="row.numberOfPaidPublishPosts" severity="info"></p-badge>
+              </td>
+              <td class="text-center">
+                <p-badge [value]="row.numberOfUnpaidPublishPosts" 
+                  [severity]="row.numberOfUnpaidPublishPosts > 0 ? 'warning' : 'secondary'"></p-badge>
+              </td>
+              <td class="text-center">
+                <button *ngIf="row.numberOfUnpaidPublishPosts > 0" 
+                  pButton pRipple type="button" 
+                  icon="pi pi-send" 
+                  label="Thanh toán"
+                  pTooltip="Gửi tiền nhuận bút" 
+                  tooltipPosition="top" 
+                  (click)="payForUser(row.userId)" 
+                  appPermission appPolicy="Permissons.Royalty.Pay" 
+                  class="p-button-sm p-button-success p-button-rounded"></button>
+                <span *ngIf="row.numberOfUnpaidPublishPosts === 0" class="text-muted">
+                  <i class="pi pi-check"></i> Đã thanh toán
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="9" class="text-center py-4">
+                <div class="text-muted">
+                  <i class="pi pi-info-circle me-2" style="font-size: 2rem;"></i>
+                  <p class="mb-0">Không có dữ liệu</p>
+                </div>
               </td>
             </tr>
           </ng-template>
         </p-table>
       </div>
-  
-      <p-blockUI [target]="pnl" [blocked]="blockedPanel">
-        <p-progressSpinner [style]="{width: '100px', height: '100px', position:'absolute',top:'25%',left:'50%'}"
-          strokeWidth="2" animationDuration=".5s"></p-progressSpinner>
-      </p-blockUI>
-    </p-panel>
-  </div>
+    </div>
+
+    <p-blockUI [target]="pnl" [blocked]="blockedPanel">
+      <p-progressSpinner [style]="{width: '100px', height: '100px', position:'absolute',top:'25%',left:'50%'}"
+        strokeWidth="3" animationDuration=".5s"></p-progressSpinner>
+    </p-blockUI>
+  </p-panel>
+</div>

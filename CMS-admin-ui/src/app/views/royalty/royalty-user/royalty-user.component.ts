@@ -86,7 +86,19 @@ export class RoyaltyUserComponent implements OnInit, OnDestroy {
         this.blockedPanel = false;
       }, 1000);
     }
+  }
 
+  // Helper methods for stats
+  getTotalPaidPosts(): number {
+    return this.items.reduce((sum, item) => sum + (item.numberOfPaidPublishPosts || 0), 0);
+  }
+
+  getTotalUnpaidPosts(): number {
+    return this.items.reduce((sum, item) => sum + (item.numberOfUnpaidPublishPosts || 0), 0);
+  }
+
+  getTotalPublishedPosts(): number {
+    return this.items.reduce((sum, item) => sum + (item.numberOfPublishPosts || 0), 0);
   }
 
 }
