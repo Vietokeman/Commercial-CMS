@@ -1,1 +1,80 @@
-/* Styles for the home component */
+/* Styles for the post component */
+
+.modern-content-wrapper {
+  padding: 24px;
+
+  .content-header-modern {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .page-title-modern {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  .search-filter-modern {
+    margin-bottom: 24px;
+
+    .search-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+  }
+
+  .table-card-modern {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 24px;
+
+    .table-summary {
+      padding: 16px 0;
+      font-weight: 600;
+      color: #6b7280;
+    }
+
+    .pagination-modern {
+      margin-top: 16px;
+    }
+  }
+}
+
+::ng-deep {
+  .modern-table {
+    .p-datatable-thead > tr > th {
+      background: #f9fafb;
+      color: #6b7280;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .p-datatable-tbody > tr {
+      border-bottom: 1px solid #f3f4f6;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #f9fafb;
+      }
+
+      td {
+        padding: 16px 20px;
+      }
+    }
+  }
+}

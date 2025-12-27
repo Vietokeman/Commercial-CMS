@@ -25,6 +25,9 @@ $enable-rtl: true;
 // Enhanced UI improvements
 @import "enhanced-ui";
 
+// Figma design system
+@import "figma-design";
+
 // Add primeng styles
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";

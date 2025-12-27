@@ -1,0 +1,300 @@
+/* Figma CMS Design System */
+
+/* Color Palette - Based on Figma Design */
+:root {
+  --primary-purple: #667eea;
+  --primary-purple-dark: #764ba2;
+  --background-light: #f8f9fa;
+  --background-white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-gray: #6b7280;
+  --text-light: #9ca3af;
+  --border-light: #e5e7eb;
+  --border-gray: #d1d5db;
+  --success-green: #10b981;
+  --success-light: #d1fae5;
+  --danger-red: #ef4444;
+  --danger-light: #fee2e2;
+  --warning-yellow: #f59e0b;
+  --info-blue: #3b82f6;
+}
+
+/* Global Layout */
+body {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+/* Modern Button Styles */
+.p-button {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  transition: all 0.3s ease;
+
+  &.p-button-success {
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-purple-dark) 100%);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+  }
+
+  &.p-button-danger {
+    background: linear-gradient(135deg, var(--danger-red) 0%, #dc2626 100%);
+  }
+
+  &.p-button-warning {
+    background: linear-gradient(135deg, var(--warning-yellow) 0%, #d97706 100%);
+  }
+}
+
+/* Modern Input Fields */
+.p-inputtext,
+.p-dropdown {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+}
+
+/* Modern Table Styles */
+.p-datatable {
+  .p-datatable-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .p-datatable-thead > tr > th {
+    background: #f9fafb;
+    color: var(--text-gray);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .p-datatable-tbody > tr {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #f9fafb;
+    }
+
+    td {
+      padding: 16px 20px;
+      color: var(--text-dark);
+    }
+  }
+}
+
+/* Modern Badge Styles */
+.p-badge {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+
+  &.p-badge-success {
+    background: var(--success-light);
+    color: #065f46;
+  }
+
+  &.p-badge-danger {
+    background: var(--danger-light);
+    color: #991b1b;
+  }
+
+  &.p-badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  &.p-badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+}
+
+/* Sidebar Modern Styles */
+.sidebar {
+  background: var(--background-white);
+  border-right: 1px solid var(--border-light);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  .nav-link {
+    border-radius: 8px;
+    margin: 4px 12px;
+    padding: 12px 16px;
+    color: var(--text-gray);
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f3f4f6;
+      color: var(--primary-purple);
+    }
+
+    &.active {
+      background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-purple-dark) 100%);
+      color: white;
+    }
+  }
+}
+
+/* Header Modern Styles */
+.header {
+  background: var(--background-white);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Panel Modern Styles */
+.p-panel {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--background-white);
+
+  .p-panel-header {
+    background: var(--background-white);
+    color: var(--text-dark);
+    padding: 24px;
+    font-weight: 700;
+    font-size: 24px;
+    border: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .p-panel-content {
+    padding: 24px;
+  }
+}
+
+/* Modern Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--background-white);
+  overflow: hidden;
+}
+
+/* Pagination Modern */
+.p-paginator {
+  background: var(--background-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 12px;
+
+  .p-paginator-pages {
+    .p-paginator-page {
+      min-width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      margin: 0 2px;
+      color: var(--text-gray);
+
+      &.p-highlight {
+        background: var(--primary-purple);
+        border-color: var(--primary-purple);
+        color: white;
+      }
+
+      &:hover:not(.p-highlight) {
+        background: #f3f4f6;
+      }
+    }
+  }
+
+  .p-paginator-first,
+  .p-paginator-prev,
+  .p-paginator-next,
+  .p-paginator-last {
+    color: var(--text-gray);
+    min-width: 36px;
+    height: 36px;
+    border-radius: 6px;
+
+    &:hover {
+      background: #f3f4f6;
+      color: var(--primary-purple);
+    }
+  }
+}
+
+/* Search Icon in Input */
+.p-input-icon-left {
+  i {
+    color: var(--text-light);
+  }
+}
+
+/* Dropdown Modern */
+.p-dropdown {
+  .p-dropdown-trigger {
+    color: var(--text-gray);
+  }
+
+  &:not(.p-disabled):hover {
+    border-color: var(--primary-purple);
+  }
+}
+
+/* Scrollbar Modern */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-purple-dark) 100%);
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--primary-purple-dark);
+  }
+}
+
+/* Utility Classes */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-purple-dark) 100%);
+}
+
+.text-primary-purple {
+  color: var(--primary-purple);
+}
+
+.border-radius-lg {
+  border-radius: 12px;
+}
+
+.border-radius-md {
+  border-radius: 8px;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

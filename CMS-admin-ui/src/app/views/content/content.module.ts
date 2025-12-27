@@ -79,4 +79,4 @@ import { TeduSharedModule } from '../../shared/modules/tedu-shared.module';
     PostActivityLogsComponent,
   ],
 })
-export class ContentModule {}
+export class ContentModule { }

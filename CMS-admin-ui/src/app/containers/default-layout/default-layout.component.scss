@@ -5,3 +5,63 @@
     --scrollbar-hover-size: calc(var(--scrollbar-size) * 1.5);
   }
 }
+
+/* Modern Sidebar Styles */
+.sidebar {
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  ::ng-deep {
+    .sidebar-brand {
+      padding: 1.5rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .sidebar-nav {
+      padding: 1rem 0;
+
+      .nav-item {
+        margin: 0.25rem 0.75rem;
+
+        .nav-link {
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          color: #6b7280;
+          font-weight: 500;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #f3f4f6;
+            color: #667eea;
+          }
+
+          &.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+          }
+
+          .nav-icon {
+            margin-right: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Modern Header Styles */
+.header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Content Area */
+.wrapper {
+  background: #f8f9fa;
+
+  .body {
+    background: #f8f9fa;
+  }
+}
