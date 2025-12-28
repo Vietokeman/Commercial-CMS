@@ -1,6 +1,8 @@
 using CMS.Core.Domain.Royalty;
 using CMS.Core.Models;
+using CMS.Core.Models.Royalty;
 using CMS.Core.Repositories;
+using System.Linq.Expressions;
 
 namespace CMS.Data.Repositories
 {
@@ -75,19 +77,14 @@ namespace CMS.Data.Repositories
             };
         }
 
-        public void Add(Transaction transaction)
-        {
-            transaction.Id = Guid.NewGuid();
-            transaction.DateCreated = DateTime.Now;
-            _mockTransactions.Add(transaction);
-        }
+
 
         public void Remove(Transaction transaction)
         {
             _mockTransactions.Remove(transaction);
         }
 
-        public Task<PagedResult<Transaction>> GetAllPaging(string? keyword, int fromMonth, int fromYear, 
+        public Task<PageResult<TransactionDto>> GetAllPaging(string? keyword, int fromMonth, int fromYear, 
             int toMonth, int toYear, int pageIndex = 1, int pageSize = 10)
         {
             var query = _mockTransactions.AsQueryable();
@@ -107,15 +104,71 @@ namespace CMS.Data.Repositories
             var transactions = query.OrderByDescending(x => x.DateCreated)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
+                .Select(x => new TransactionDto
+                {
+                    Id = x.Id,
+                    FromUserName = x.FromUserName,
+                    FromUserId = x.FromUserId,
+                    ToUserId = x.ToUserId,
+                    ToUserName = x.ToUserName,
+                    Amount = x.Amount,
+                    TransactionType = x.TransactionType,
+                    DateCreated = x.DateCreated,
+                    Note = x.Note
+                })
                 .ToList();
 
-            return Task.FromResult(new PagedResult<Transaction>
+            return Task.FromResult(new PageResult<TransactionDto>
             {
                 Results = transactions,
                 CurrentPage = pageIndex,
                 RowCount = totalRow,
                 PageSize = pageSize
             });
+        }
+
+        public Task<Transaction?> GetByIdAsync<TKey>(TKey id)
+        {
+            var guid = (Guid)(object)id!;
+            var transaction = _mockTransactions.FirstOrDefault(x => x.Id == guid);
+            return Task.FromResult(transaction);
+        }
+
+        public Task<IEnumerable<Transaction>> GetAllAsync()
+        {
+            return Task.FromResult<IEnumerable<Transaction>>(_mockTransactions);
+        }
+
+        public IEnumerable<Transaction> Find(Expression<Func<Transaction, bool>> expression)
+        {
+            return _mockTransactions.AsQueryable().Where(expression);
+        }
+
+        public Task Add(Transaction entity)
+        {
+            entity.Id = Guid.NewGuid();
+            entity.DateCreated = DateTime.Now;
+            _mockTransactions.Add(entity);
+            return Task.CompletedTask;
+        }
+
+        public Task AddRange(IEnumerable<Transaction> entities)
+        {
+            foreach (var entity in entities)
+            {
+                entity.Id = Guid.NewGuid();
+                entity.DateCreated = DateTime.Now;
+                _mockTransactions.Add(entity);
+            }
+            return Task.CompletedTask;
+        }
+
+        public void RemoveRange(IEnumerable<Transaction> entities)
+        {
+            foreach (var entity in entities)
+            {
+                _mockTransactions.Remove(entity);
+            }
         }
     }
 }
