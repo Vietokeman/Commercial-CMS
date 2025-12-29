@@ -1,6 +1,7 @@
 ﻿using CMS.Api;
 using CMS.Api.Authorization;
 using CMS.Api.Filters;
+using CMS.Api.Middlewares;
 using CMS.Api.Service;
 using CMS.Core.ConfigOptions;
 using CMS.Core.Domain.Identity;
@@ -48,16 +49,22 @@ try
     builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
     builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
     builder.Services.AddScoped<IRepositoryFactory, DataFactory>();
-    builder.Services.AddCors(o => o.AddPolicy(VietokemanPolicy, builder =>
+    // Configure CORS
+    var allowedOrigins = configuration["AllowedOrigins"]?.Split(',') ?? new[] { "http://localhost:4200" };
+    builder.Services.AddCors(o => o.AddPolicy(VietokemanPolicy, corsBuilder =>
     {
-        builder.AllowAnyMethod()
-        .AllowAnyHeader()
-        .WithOrigins(configuration["AllowedOrigins"])
-        .AllowCredentials();
+        corsBuilder.AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins(allowedOrigins)
+            .AllowCredentials();
     }));
 
     builder.Services.AddDbContext<CMSDbContext>(options =>
         options.UseSqlServer(connectionString));
+
+    // Add Health Checks
+    builder.Services.AddHealthChecks()
+        .AddDbContextCheck<CMSDbContext>("Database");
 
     builder.Services.AddIdentity<AppUser, AppRole>(options =>
     {
@@ -179,8 +186,14 @@ try
 
     var app = builder.Build();
 
+    // Global Exception Handler
+    app.UseMiddleware<GlobalExceptionMiddleware>();
+
     app.UseStaticFiles();
     app.UseSerilogRequestLogging(); // Log HTTP request pipeline
+
+    // Health Checks
+    app.MapHealthChecks("/health");
 
     if (app.Environment.IsDevelopment())
     {
@@ -201,7 +214,15 @@ try
     app.UseAuthorization();
     app.MapControllers();
 
-    app.MigrateDatabase();
+    // Migrate Database only if connection is available
+    try
+    {
+        app.MigrateDatabase();
+    }
+    catch (Exception ex)
+    {
+        Log.Warning(ex, "Database migration failed. Skipping...");
+    }
     app.Run();
 }
 catch (Exception ex)
