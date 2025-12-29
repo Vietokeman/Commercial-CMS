@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text.Json;
+using Asp.Versioning;
 
 namespace CMS.Api.Controllers.AdminApi
 {
-    [Route("api/admin/auth")]
+    [Route("api/v{version:apiVersion}/admin/auth")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class AuthController : BaseController
     {
         private readonly UserManager<AppUser> _userManager;

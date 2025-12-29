@@ -26,6 +26,7 @@ using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Text;
+using Asp.Versioning;
 using DataFactory = CMS.Data.SqlServer.SqlServerRepositoryFactory;
 
 Log.Logger = new LoggerConfiguration()
@@ -121,6 +122,23 @@ try
     builder.Services.AddScoped<IRoyaltyService, RoyaltyService>();
     builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
+    // Add API Versioning
+    builder.Services.AddApiVersioning(options =>
+    {
+        options.DefaultApiVersion = new ApiVersion(1, 0);
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.ReportApiVersions = true;
+        options.ApiVersionReader = ApiVersionReader.Combine(
+            new UrlSegmentApiVersionReader(),
+            new HeaderApiVersionReader("X-Api-Version"),
+            new QueryStringApiVersionReader("api-version")
+        );
+    }).AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
+
     builder.Services.AddControllers();
 
     builder.Services.AddEndpointsApiExplorer();
@@ -130,10 +148,10 @@ try
         {
             return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
         });
-        c.SwaggerDoc("AdminAPI", new OpenApiInfo
+        c.SwaggerDoc("v1", new OpenApiInfo
         {
             Version = "v1",
-            Title = "API for Administrators",
+            Title = "CMS API v1",
             Description = "API for CMS core domain. This domain keeps track of campaigns, campaign rules, and campaign execution."
         });
         c.ParameterFilter<SwaggerNullableParameterFilter>();
