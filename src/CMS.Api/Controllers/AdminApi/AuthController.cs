@@ -1,4 +1,5 @@
 ﻿using CMS.Api.Extensions;
+using CMS.Api.Models;
 using CMS.Api.Service;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models.Auth;
@@ -14,7 +15,7 @@ namespace CMS.Api.Controllers.AdminApi
 {
     [Route("api/admin/auth")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -28,26 +29,26 @@ namespace CMS.Api.Controllers.AdminApi
             _roleManager = roleManager;
         }
         [HttpPost("login")]
-        public async Task<ActionResult<AuthenticatedResult>> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             //authentication
             if (request == null)
             {
-                return BadRequest("Invalid request");
+                return BadRequestResponse("Invalid request");
             }
 
 
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null || user.IsActive == false || user.LockoutEnabled)
             {
-                return Unauthorized();
+                return UnauthorizedResponse("Invalid credentials or account is locked");
             }
             // k co await thi k the succeeded
-            var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, false, true);
+            var loginResult = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, false, true);
 
-            if (!result.Succeeded)
+            if (!loginResult.Succeeded)
             {
-                return Unauthorized();
+                return UnauthorizedResponse("Invalid credentials");
             }
 
             //authorization
@@ -73,11 +74,13 @@ namespace CMS.Api.Controllers.AdminApi
             user.RefreshTokenExpiryTime = DateTime.Now.AddDays(30);
             await _userManager.UpdateAsync(user);
 
-            return Ok(new AuthenticatedResult()
+            var authResult = new AuthenticatedResult()
             {
                 Token = accesToken,
                 RefreshToken = refreshToken
-            });
+            };
+
+            return SuccessResponse(authResult, "Login successful");
         }
         private async Task<List<string>> GetPermissionsByUserIdAsync(string userId)
         {
