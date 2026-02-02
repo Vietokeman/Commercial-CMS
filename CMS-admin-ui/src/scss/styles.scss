@@ -6,18 +6,22 @@ $enable-ltr: true;
 $enable-rtl: true;
 
 // Import styles with default layout.
-@import "@coreui/coreui/scss/coreui";
+// Temporary workaround: Using compiled CSS instead of SCSS due to Sass compilation issues in CoreUI 5.2.0
+// @import "@coreui/coreui/scss/coreui";
 
 // Import Chart.js custom tooltips styles
-@import "@coreui/chartjs/scss/coreui-chartjs";
+// Temporary workaround: Using compiled CSS instead of SCSS due to Sass compilation issues in CoreUI 5.2.0
+// @import "@coreui/chartjs/scss/coreui-chartjs";
 
-@import "layout";
+// Temporarily commented out due to CoreUI SCSS dependency
+// @import "layout";
 
 // Some temp fixes
 @import "fixes";
 
+// Temporarily commented out due to CoreUI SCSS dependency  
 // Prism.js
-@import "examples";
+// @import "examples";
 
 // If you want to add something do it here
 @import "custom";
@@ -27,8 +31,4 @@ $enable-rtl: true;
 
 // Figma design system
 @import "figma-design";
-
-// Add primeng styles
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";

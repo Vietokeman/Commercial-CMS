@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { authGuard } from '../../../app/shared/auth.guard';
 import { RoyaltyMonthComponent } from './royalty-month/royalty-month.component';
 import { RoyaltyUserComponent } from './royalty-user/royalty-user.component';
 import { TransactionComponent } from './transactions/transactions.component';
-const routes: Routes = [
+
+export const ROYALTY_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'transactions',
@@ -38,9 +38,3 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class RoyaltyRoutingModule {}

@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { UserComponent } from './users/user.component';
 import { RoleComponent } from './roles/role.component';
+import { AuthGuard } from '../../shared/auth.guard';
 
-import { authGuard } from '../../shared/auth.guard';
-const routes: Routes = [
+export const SYSTEM_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'users',
@@ -17,7 +16,7 @@ const routes: Routes = [
       title: 'Người dùng',
       requiredPolicy: 'Permissions.Users.View',
     },
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'roles',
@@ -26,12 +25,6 @@ const routes: Routes = [
       title: 'Quyền',
       requiredPolicy: 'Permissions.Roles.View',
     },
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class SystemRoutingModule {}

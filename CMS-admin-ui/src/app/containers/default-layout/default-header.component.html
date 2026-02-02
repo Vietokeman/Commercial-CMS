@@ -1,0 +1,18 @@
+<c-header class="mb-4 d-print-none" position="sticky">
+  <c-container [fluid]="true">
+    <button
+      [cSidebarToggle]="'sidebar'"
+      cButtonSize="sm"
+      class="btn btn-link d-lg-none"
+      type="button"
+    >
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+    <c-header-nav class="d-none d-lg-flex">
+      <!-- Add navigation items here if needed -->
+    </c-header-nav>
+    <c-header-nav class="ms-auto">
+      <!-- Add user menu or other header items here -->
+    </c-header-nav>
+  </c-container>
+</c-header>

@@ -25,10 +25,11 @@ import { BadgeModule } from 'primeng/badge';
 import { PickListModule } from 'primeng/picklist';
 import { ImageModule } from 'primeng/image';
 import { TooltipModule } from 'primeng/tooltip'; // Cho pTooltip
-import { DynamicDialogModule } from 'primeng/dynamicdialog'; // Cho DialogService
+import { DynamicDialog } from 'primeng/dynamicdialog'; // Cho DialogService
 import { ConfirmDialogModule } from 'primeng/confirmdialog'; // Cho ConfirmationService
 import { SharedModule } from 'primeng/api'; // Đã có, giữ nguyên
-import { TeduSharedModule } from '../../../app/shared/modules/tedu-shared.module'; // Đã có, giữ nguyên
+import { InputNumberModule } from 'primeng/inputnumber';
+import { TeduSharedModule } from '../../shared/modules/tedu-shared.module';
 
 @NgModule({
   imports: [
@@ -51,8 +52,9 @@ import { TeduSharedModule } from '../../../app/shared/modules/tedu-shared.module
     PickListModule,
     ImageModule,
     TooltipModule, // Thêm cho pTooltip
-    DynamicDialogModule, // Thêm cho DialogService
+    DynamicDialog, // Thêm cho DialogService
     ConfirmDialogModule, // Thêm cho ConfirmationService
+    InputNumberModule,
   ],
   declarations: [
     UserComponent,

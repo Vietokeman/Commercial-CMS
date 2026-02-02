@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -36,10 +40,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withHashLocation()),
     provideAnimations(),
     provideHttpClient(withInterceptors([tokenInterceptor])),
-    
+
     // API Base URL
     { provide: ADMIN_API_BASE_URL, useValue: environment.API_URL },
-    
+
     // Core Services
     IconSetService,
     Title,
@@ -51,7 +55,7 @@ export const appConfig: ApplicationConfig = {
     UploadService,
     BroadcastService,
     DialogService,
-    
+
     // API Clients
     AdminApiAuthApiClient,
     AdminApiTestApiClient,

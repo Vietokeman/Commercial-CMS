@@ -5,7 +5,7 @@ import { authGuard } from './shared/auth.guard';
 export const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./views/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+    loadChildren: () => import('./views/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '',
@@ -17,19 +17,19 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
+        loadChildren: () => import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'system',
-        loadChildren: () => import('./views/system/system.routes').then((m) => m.SYSTEM_ROUTES),
+        loadChildren: () => import('./views/system/system.module').then((m) => m.SystemModule),
       },
       {
         path: 'content',
-        loadChildren: () => import('./views/content/content.routes').then((m) => m.CONTENT_ROUTES),
+        loadChildren: () => import('./views/content/content.module').then((m) => m.ContentModule),
       },
       {
         path: 'royalty',
-        loadChildren: () => import('./views/royalty/royalty.routes').then((m) => m.ROYALTY_ROUTES),
+        loadChildren: () => import('./views/royalty/royalty.module').then((m) => m.RoyaltyModule),
       },
     ],
   },

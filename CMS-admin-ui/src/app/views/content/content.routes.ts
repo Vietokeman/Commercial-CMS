@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { PostComponent } from './posts/post.component';
 import { PostCategoryComponent } from './post-categories/post-category.component';
 import { authGuard } from '../../shared/auth.guard';
 import { SeriesComponent } from './series/series.component';
-const routes: Routes = [
+
+export const CONTENT_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'posts',
@@ -37,9 +37,3 @@ const routes: Routes = [
     },
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class ContentRoutingModule { }

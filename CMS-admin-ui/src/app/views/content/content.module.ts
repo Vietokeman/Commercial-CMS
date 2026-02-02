@@ -28,13 +28,13 @@ import { TableModule } from 'primeng/table';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Textarea } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ImageModule } from 'primeng/image';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DynamicDialog } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TeduSharedModule } from '../../shared/modules/tedu-shared.module';
 
@@ -57,13 +57,13 @@ import { TeduSharedModule } from '../../shared/modules/tedu-shared.module';
     KeyFilterModule,
     ButtonModule,
     InputTextModule,
-    InputTextareaModule,
+    Textarea,
     DropdownModule,
     EditorModule,
     InputNumberModule,
     ImageModule,
     AutoCompleteModule,
-    DynamicDialogModule,
+    DynamicDialog,
     ConfirmDialogModule,
   ],
   declarations: [

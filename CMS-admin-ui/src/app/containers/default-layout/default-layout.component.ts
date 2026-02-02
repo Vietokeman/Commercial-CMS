@@ -8,9 +8,6 @@ import { UrlConstants } from '../../shared/constants/url.constants';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import {
   SidebarModule,
-  SidebarNavModule,
-  SidebarTogglerModule,
-  SidebarBrandModule,
   ContainerComponent,
 } from '@coreui/angular';
 import { DefaultHeaderComponent } from './default-header.component';
@@ -23,9 +20,6 @@ import { DefaultFooterComponent } from './default-footer.component';
     CommonModule,
     RouterOutlet,
     SidebarModule,
-    SidebarNavModule,
-    SidebarTogglerModule,
-    SidebarBrandModule,
     NgScrollbarModule,
     ContainerComponent,
     DefaultHeaderComponent,

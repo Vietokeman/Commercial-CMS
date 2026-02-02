@@ -1,7 +1,18 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ClassToggleService, HeaderComponent, HeaderModule, ContainerComponent, DropdownModule, AvatarModule, NavModule, BadgeModule } from '@coreui/angular';
+import { 
+  ClassToggleService, 
+  HeaderComponent, 
+  HeaderModule, 
+  ContainerComponent, 
+  DropdownModule, 
+  AvatarModule, 
+  NavModule, 
+  BadgeModule,
+  SidebarToggleDirective,
+  BreadcrumbModule
+} from '@coreui/angular';
 import { UrlConstants } from '../../../shared/constants/url.constants';
 import { TokenStorageService } from '../../../shared/services/token-storage.service';
 import { IconModule } from '@coreui/icons-angular';
@@ -18,6 +29,8 @@ import { IconModule } from '@coreui/icons-angular';
     NavModule,
     BadgeModule,
     IconModule,
+    SidebarToggleDirective,
+    BreadcrumbModule
   ],
   templateUrl: './default-header.component.html',
 })

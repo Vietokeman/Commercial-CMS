@@ -15,6 +15,7 @@ import { AlertService } from '../../../shared/services/alert.service';
 import { UrlConstants } from '../../../shared/constants/url.constants';
 import { TokenStorageService } from '../../../shared/services/token-storage.service';
 import { Subject, takeUntil } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { BroadcastService } from '../../../shared/services/boardcast.service';
 @Component({
   selector: 'app-login',
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    this.broadCastService.httpError.asObservable().subscribe((values) => {
+    toObservable(this.broadCastService.httpError).subscribe((values) => {
       this.loading = false;
     });
   }

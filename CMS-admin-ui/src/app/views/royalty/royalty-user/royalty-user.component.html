@@ -169,7 +169,7 @@
                 <p-badge [value]="row.numberOfDraftPosts" severity="secondary"></p-badge>
               </td>
               <td class="text-center">
-                <p-badge [value]="row.numberOfWaitingApprovalPosts" severity="warning"></p-badge>
+                <p-badge [value]="row.numberOfWaitingApprovalPosts" severity="warn"></p-badge>
               </td>
               <td class="text-center">
                 <p-badge [value]="row.numberOfRejectedPosts" severity="danger"></p-badge>
@@ -182,7 +182,7 @@
               </td>
               <td class="text-center">
                 <p-badge [value]="row.numberOfUnpaidPublishPosts" 
-                  [severity]="row.numberOfUnpaidPublishPosts > 0 ? 'warning' : 'secondary'"></p-badge>
+                  [severity]="row.numberOfUnpaidPublishPosts > 0 ? 'warn' : 'secondary'"></p-badge>
               </td>
               <td class="text-center">
                 <button *ngIf="row.numberOfUnpaidPublishPosts > 0" 

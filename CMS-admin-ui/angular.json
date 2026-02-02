@@ -32,9 +32,9 @@
             "preserveSymlinks": true,
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "node_modules/@coreui/coreui/dist/css/coreui.min.css",
+              "node_modules/@coreui/chartjs/dist/css/coreui-chartjs.min.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/saga-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "src/scss/styles.scss"
             ],
             "scripts": [],

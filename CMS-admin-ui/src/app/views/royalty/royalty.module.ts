@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
@@ -19,8 +19,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ImageModule } from 'primeng/image';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DynamicDialog } from 'primeng/dynamicdialog';
+import { Textarea } from 'primeng/inputtextarea';
 import { EditorModule } from 'primeng/editor';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { RoyaltyMonthComponent } from './royalty-month/royalty-month.component';
@@ -33,6 +33,7 @@ import { TransactionComponent } from './transactions/transactions.component';
     IconModule,
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     ChartjsModule,
     ProgressSpinnerModule,
     PanelModule,
@@ -45,13 +46,13 @@ import { TransactionComponent } from './transactions/transactions.component';
     TeduSharedModule,
     ButtonModule,
     InputTextModule,
-    InputTextareaModule,
+    Textarea,
     DropdownModule,
     EditorModule,
     InputNumberModule,
     ImageModule,
     AutoCompleteModule,
-    DynamicDialogModule,
+    DynamicDialog,
   ],
   declarations: [
     RoyaltyMonthComponent,
