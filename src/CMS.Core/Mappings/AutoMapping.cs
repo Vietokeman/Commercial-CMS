@@ -3,6 +3,7 @@ using CMS.Core.Domain.Content;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models.Content;
 using CMS.Core.Models.System;
+using CMS.Core.Services;
 
 namespace CMS.Core.Mappings
 {
@@ -10,8 +11,14 @@ namespace CMS.Core.Mappings
     {
         public AutoMapping()
         {
-            CreateMap<Post, PostInListDto>();
-            CreateMap<Post, PostDto>();
+            CreateMap<Post, PostInListDto>()
+                .ForMember(dest => dest.EstimatedReadingTimeMinutes, 
+                    opt => opt.MapFrom(src => ReadingTimeCalculator.CalculateReadingTime(src.Content)));
+            
+            CreateMap<Post, PostDto>()
+                .ForMember(dest => dest.EstimatedReadingTimeMinutes, 
+                    opt => opt.MapFrom(src => ReadingTimeCalculator.CalculateReadingTime(src.Content)));
+            
             CreateMap<CreateUpdatePostRequest, Post>();
             CreateMap<AppRole, RoleDto>();
             CreateMap<AppUser, UserDto>();

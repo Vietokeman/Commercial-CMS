@@ -58,7 +58,7 @@ namespace CMS.Data
                 {
                     if (modifiedDateProp != null)
                     {
-                        modifiedDateProp.SetValue(entityEntry.Entity, DateTime.Now);
+                        modifiedDateProp.SetValue(entityEntry.Entity, DateTime.UtcNow);
                     }
                 }
             }

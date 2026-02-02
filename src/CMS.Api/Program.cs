@@ -61,7 +61,7 @@ try
     }));
 
     builder.Services.AddDbContext<CMSDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseNpgsql(connectionString));
 
     // Add Health Checks
     builder.Services.AddHealthChecks()
@@ -206,6 +206,9 @@ try
 
     // Global Exception Handler
     app.UseMiddleware<GlobalExceptionMiddleware>();
+
+    // JWT Middleware for token validation
+    app.UseMiddleware<JwtMiddleware>();
 
     app.UseStaticFiles();
     app.UseSerilogRequestLogging(); // Log HTTP request pipeline
