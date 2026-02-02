@@ -1,0 +1,48 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github
+.vscode
+.vs
+*.yml
+!docker-compose.yml
+
+# Documentation
+*.md
+!README.md
+
+# Build outputs
+**/bin
+**/obj
+**/dist
+**/node_modules
+**/wwwroot
+
+# Logs
+**/Logs
+**/*.log
+
+# Environment files
+**/.env
+**/.env.*
+
+# Tests
+**/*.Test
+**/*.Tests
+**/test
+**/tests
+
+# IDE
+**/.idea
+**/.vscode
+**/*.suo
+**/*.user
+**/*.userprefs
+**/*.sln.docstates
+
+# OS
+.DS_Store
+Thumbs.db

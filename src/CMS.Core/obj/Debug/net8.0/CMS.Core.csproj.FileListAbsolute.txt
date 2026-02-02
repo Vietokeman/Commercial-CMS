@@ -37,3 +37,16 @@ D:\Github-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.dll
 D:\Github-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\refint\CMS.Core.dll
 D:\Github-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.pdb
 D:\Github-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\ref\CMS.Core.dll
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\bin\Debug\net8.0\CMS.Core.deps.json
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\bin\Debug\net8.0\CMS.Core.dll
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\bin\Debug\net8.0\CMS.Core.pdb
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.csproj.AssemblyReference.cache
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.AssemblyInfoInputs.cache
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.AssemblyInfo.cs
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.csproj.CoreCompileInputs.cache
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.sourcelink.json
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.dll
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\refint\CMS.Core.dll
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\CMS.Core.pdb
+D:\Git-Repo\CMS\Commercial-CMS\src\CMS.Core\obj\Debug\net8.0\ref\CMS.Core.dll

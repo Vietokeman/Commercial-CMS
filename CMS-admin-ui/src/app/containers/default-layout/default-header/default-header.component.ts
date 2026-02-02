@@ -1,13 +1,24 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
-import { ClassToggleService, HeaderComponent } from '@coreui/angular';
+import { ClassToggleService, HeaderComponent, HeaderModule, ContainerComponent, DropdownModule, AvatarModule, NavModule, BadgeModule } from '@coreui/angular';
 import { UrlConstants } from '../../../shared/constants/url.constants';
 import { TokenStorageService } from '../../../shared/services/token-storage.service';
+import { IconModule } from '@coreui/icons-angular';
 
 @Component({
   selector: 'app-default-header',
+  standalone: true,
+  imports: [
+    CommonModule,
+    HeaderModule,
+    ContainerComponent,
+    DropdownModule,
+    AvatarModule,
+    NavModule,
+    BadgeModule,
+    IconModule,
+  ],
   templateUrl: './default-header.component.html',
 })
 export class DefaultHeaderComponent extends HeaderComponent {

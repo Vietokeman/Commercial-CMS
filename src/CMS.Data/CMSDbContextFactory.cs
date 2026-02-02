@@ -13,7 +13,7 @@ namespace CMS.Data
                 .AddJsonFile("appsettings.json")
                 .Build();
             var builder = new DbContextOptionsBuilder<CMSDbContext>();
-            builder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            builder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             return new CMSDbContext(builder.Options);
         }
     }

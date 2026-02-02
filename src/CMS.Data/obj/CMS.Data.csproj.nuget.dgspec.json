@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj": {}
+    "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj": {}
   },
   "projects": {
-    "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj": {
+    "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj",
+        "projectUniqueName": "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj",
         "projectName": "CMS.Core",
-        "projectPath": "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj",
-        "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
-        "outputPath": "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\obj\\",
+        "projectPath": "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -90,24 +91,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj": {
+    "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj",
+        "projectUniqueName": "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj",
         "projectName": "CMS.Data",
-        "projectPath": "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj",
-        "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
-        "outputPath": "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\obj\\",
+        "projectPath": "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\CMS.Data.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -122,8 +123,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj": {
-                "projectPath": "D:\\Github-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj"
+              "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj": {
+                "projectPath": "D:\\Git-Repo\\CMS\\Commercial-CMS\\src\\CMS.Core\\CMS.Core.csproj"
               }
             }
           }
@@ -137,7 +138,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -148,14 +150,6 @@
               "version": "[2.1.66, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.14, )"
-            },
-            "Microsoft.Data.SqlClient": {
-              "target": "Package",
-              "version": "[6.0.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.14, )"
             },
@@ -172,6 +166,10 @@
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.14, )"
             }
           },
           "imports": [
@@ -190,7 +188,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

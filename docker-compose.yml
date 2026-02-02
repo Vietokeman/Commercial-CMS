@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: cms-postgres
+    environment:
+      POSTGRES_DB: CMS_Commercial
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cms-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # .NET Backend API
+  backend:
+    build:
+      context: ./src/CMS.Api
+      dockerfile: Dockerfile
+    container_name: cms-backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=CMS_Commercial;Username=postgres;Password=postgres;Include Error Detail=true
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - cms-network
+    volumes:
+      - ./src/CMS.Api/Logs:/app/Logs
+    restart: unless-stopped
+
+  # Angular Frontend
+  frontend:
+    build:
+      context: ./CMS-admin-ui
+      dockerfile: Dockerfile
+    container_name: cms-frontend
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - cms-network
+    restart: unless-stopped
+
+networks:
+  cms-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

@@ -1,12 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 import { navItems } from './_nav';
 import { TokenStorageService } from '../../shared/services/token-storage.service';
 import { Router } from '@angular/router';
 import { UrlConstants } from '../../shared/constants/url.constants';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import {
+  SidebarModule,
+  SidebarNavModule,
+  SidebarTogglerModule,
+  SidebarBrandModule,
+  ContainerComponent,
+} from '@coreui/angular';
+import { DefaultHeaderComponent } from './default-header.component';
+import { DefaultFooterComponent } from './default-footer.component';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    SidebarModule,
+    SidebarNavModule,
+    SidebarTogglerModule,
+    SidebarBrandModule,
+    NgScrollbarModule,
+    ContainerComponent,
+    DefaultHeaderComponent,
+    DefaultFooterComponent,
+  ],
   templateUrl: './default-layout.component.html',
   styleUrls: ['./default-layout.component.scss'],
 })

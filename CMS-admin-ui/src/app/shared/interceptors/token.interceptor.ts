@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   HttpRequest,
-  HttpHandler,
-  HttpInterceptor,
+  HttpHandlerFn,
+  HttpInterceptorFn,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import {
   catchError,
   Observable,
   switchMap,
   throwError,
-  tap,
   Subject,
+  tap,
 } from 'rxjs';
 import { TokenStorageService } from '../services/token-storage.service';
 import {
@@ -19,123 +20,151 @@ import {
   TokenRequest,
 } from '../../api/admin-api.service.generated';
 import { Router } from '@angular/router';
-import { AlertService } from '../../../app/shared/services/alert.service';
-import { BroadcastService } from '../../../app/shared/services/boardcast.service';
+import { AlertService } from '../services/alert.service';
+import { BroadcastService } from '../services/boardcast.service';
 
-@Injectable()
-export class TokenInterceptor implements HttpInterceptor {
-  refreshTokenInProgress = false;
-  tokenRefreshedSource = new Subject();
-  tokenRefreshed$ = this.tokenRefreshedSource.asObservable();
+let refreshTokenInProgress = false;
+const tokenRefreshedSource = new Subject<string>();
+const tokenRefreshed$ = tokenRefreshedSource.asObservable();
 
-  constructor(
-    private router: Router,
-    private tokenService: TokenStorageService,
-    private tokenApiClient: AdminApiTokenApiClient,
-    private alertService: AlertService,
-    private boardCastService: BroadcastService
-  ) {}
+function addAuthHeader(
+  request: HttpRequest<any>,
+  tokenService: TokenStorageService
+): HttpRequest<any> {
+  const authHeader = tokenService.getToken();
+  if (authHeader) {
+    return request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${authHeader}`,
+      },
+    });
+  }
+  return request;
+}
 
-  addAuthHeader(request) {
-    const authHeader = this.tokenService.getToken();
-    if (authHeader) {
-      return request.clone({
-        setHeaders: {
-          Authorization: `Bearer ` + authHeader,
-        },
+function refreshToken(
+  tokenService: TokenStorageService,
+  tokenApiClient: AdminApiTokenApiClient,
+  router: Router
+): Observable<any> {
+  if (refreshTokenInProgress) {
+    return new Observable((observer) => {
+      tokenRefreshed$.subscribe(() => {
+        observer.next();
+        observer.complete();
       });
-    }
-    return request;
-  }
-
-  refreshToken(): Observable<any> {
-    if (this.refreshTokenInProgress) {
-      return new Observable((observer) => {
-        this.tokenRefreshed$.subscribe(() => {
-          observer.next();
-          observer.complete();
-        });
-      });
-    } else {
-      this.refreshTokenInProgress = true;
-      const token = this.tokenService.getToken();
-      const refreshToken = this.tokenService.getRefreshToken();
-      var tokenRequest = new TokenRequest({
-        accessToken: token!,
-        refreshToken: refreshToken!,
-      });
-      return this.tokenApiClient.refresh(tokenRequest).pipe(
-        tap((response: AuthenticatedResult) => {
-          this.refreshTokenInProgress = false;
-          this.tokenService.saveToken(response.token!);
-          this.tokenService.saveRefreshToken(response.refreshToken!);
-          this.tokenRefreshedSource.next(response.token);
-        }),
-        catchError((err) => {
-          this.refreshTokenInProgress = false;
-          this.logout();
-          return throwError(err);
-        })
-      );
-    }
-  }
-
-  logout() {
-    this.tokenService.signOut();
-    this.router.navigate(['login']);
-  }
-
-  async handleResponseError(error, request?, next?) {
-    // Business error
-    if (error.status === 400) {
-      const errMessage = await new Response(error.error).text();
-      this.alertService.showError(errMessage);
-      this.boardCastService.httpError.next(true);
-    }
-
-    // Invalid token error
-    else if (error.status === 401) {
-      return this.refreshToken().pipe(
-        switchMap(() => {
-          request = this.addAuthHeader(request);
-          return next.handle(request);
-        }),
-        catchError((e) => {
-          if (e.status !== 401) {
-            return this.handleResponseError(e);
-          } else {
-            this.logout();
-          }
-        })
-      );
-    }
-
-    // Access denied error
-    else if (error.status === 403) {
-      // Logout
-      this.logout();
-      this.boardCastService.httpError.next(true);
-    }
-    // Maintenance error
-    else if (error.status === 500) {
-      this.alertService.showError(
-        'Hệ thống có lỗi xảy ra. Vui lòng liên hệ admin'
-      );
-      this.boardCastService.httpError.next(true);
-    }
-
-    return throwError(error);
-  }
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    // Handle request
-    request = this.addAuthHeader(request);
-
-    // Handle response
-    return next.handle(request).pipe(
-      catchError((error) => {
-        return this.handleResponseError(error, request, next);
+    });
+  } else {
+    refreshTokenInProgress = true;
+    const token = tokenService.getToken();
+    const refreshTokenVal = tokenService.getRefreshToken();
+    const tokenRequest = new TokenRequest({
+      accessToken: token!,
+      refreshToken: refreshTokenVal!,
+    });
+    return tokenApiClient.refresh(tokenRequest).pipe(
+      tap((response: AuthenticatedResult) => {
+        refreshTokenInProgress = false;
+        tokenService.saveToken(response.token!);
+        tokenService.saveRefreshToken(response.refreshToken!);
+        tokenRefreshedSource.next(response.token!);
+      }),
+      catchError((err) => {
+        refreshTokenInProgress = false;
+        logout(tokenService, router);
+        return throwError(() => err);
       })
     );
   }
 }
+
+function logout(tokenService: TokenStorageService, router: Router): void {
+  tokenService.signOut();
+  router.navigate(['login']);
+}
+
+async function handleResponseError(
+  error: HttpErrorResponse,
+  request: HttpRequest<any>,
+  next: HttpHandlerFn,
+  tokenService: TokenStorageService,
+  tokenApiClient: AdminApiTokenApiClient,
+  router: Router,
+  alertService: AlertService,
+  broadcastService: BroadcastService
+): Promise<Observable<any>> {
+  // Business error
+  if (error.status === 400) {
+    const errMessage = await new Response(error.error).text();
+    alertService.showError(errMessage);
+    broadcastService.httpError.set(true);
+  }
+  // Invalid token error
+  else if (error.status === 401) {
+    return refreshToken(tokenService, tokenApiClient, router).pipe(
+      switchMap(() => {
+        request = addAuthHeader(request, tokenService);
+        return next(request);
+      }),
+      catchError((e) => {
+        if (e.status !== 401) {
+          return handleResponseError(
+            e,
+            request,
+            next,
+            tokenService,
+            tokenApiClient,
+            router,
+            alertService,
+            broadcastService
+          );
+        } else {
+          logout(tokenService, router);
+          return throwError(() => e);
+        }
+      })
+    );
+  }
+  // Access denied error
+  else if (error.status === 403) {
+    logout(tokenService, router);
+    broadcastService.httpError.set(true);
+  }
+  // Server error
+  else if (error.status === 500) {
+    alertService.showError('Hệ thống có lỗi xảy ra. Vui lòng liên hệ admin');
+    broadcastService.httpError.set(true);
+  }
+
+  return throwError(() => error);
+}
+
+export const tokenInterceptor: HttpInterceptorFn = (
+  request: HttpRequest<any>,
+  next: HttpHandlerFn
+): Observable<any> => {
+  const tokenService = inject(TokenStorageService);
+  const tokenApiClient = inject(AdminApiTokenApiClient);
+  const router = inject(Router);
+  const alertService = inject(AlertService);
+  const broadcastService = inject(BroadcastService);
+
+  // Add auth header
+  request = addAuthHeader(request, tokenService);
+
+  // Handle response
+  return next(request).pipe(
+    catchError((error: HttpErrorResponse) => {
+      return handleResponseError(
+        error,
+        request,
+        next,
+        tokenService,
+        tokenApiClient,
+        router,
+        alertService,
+        broadcastService
+      );
+    })
+  );
+};

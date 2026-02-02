@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 
 @Injectable()
 export class BroadcastService {
-    public httpError: BehaviorSubject<boolean>;
+    public httpError: WritableSignal<boolean>;
 
     constructor() {
-        //initialize it to false
-        this.httpError = new BehaviorSubject<boolean>(false);
+        // Initialize with signal
+        this.httpError = signal<boolean>(false);
     }
 }
